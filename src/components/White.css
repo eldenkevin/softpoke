@@ -1,0 +1,28 @@
+.home-header,
+.home-footer .footerContainer,
+.home-footer .siteMap02 li a,
+.home-footer .social02 li a,
+.home-footer .bigContact,
+.home-footer .privacy a {
+  color: var(--white-color);
+}
+
+.home-header .navbar__menu li ::before {
+  background: var(--white-color);
+}
+
+.home-header .navbar__menu li a {
+  color: var(--white-color);
+}
+
+.home-header .navbar__logo {
+  width: 102px;
+  height: 24px;
+  background: url("../assets/logo-w.svg") no-repeat center center;
+  background-size: contain;
+  display: inline-block;
+}
+
+.home-footer .bigContact::after {
+  background-color: var(--white-color) !important;
+}
