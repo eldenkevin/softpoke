@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "../App.css";
 import { Divider, DividerWithMargin } from "../components/Divider";
 
 const Privacy: React.FC = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <section className="bodySection bodySection-Privacy">
       <DividerWithMargin />
