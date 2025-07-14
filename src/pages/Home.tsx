@@ -114,7 +114,6 @@ const Home: React.FC = () => {
         {loading && (
           <div className="loadingIndicator">
             <div className="loadingSpinner"></div>
-            <div className="loadingText">Loading...</div>
           </div>
         )}
         <video
