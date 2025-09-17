@@ -360,6 +360,7 @@ const Contact: React.FC = () => {
             <p style={{ marginTop: '10px' }}>
               📩{' '}
               <span
+                className="email-link"
                 onClick={handleEmailClick}
                 style={{ cursor: 'pointer', textDecoration: 'underline' }}
               >
@@ -371,7 +372,7 @@ const Contact: React.FC = () => {
               {t('contact.contactInfo.title')}
               <br />
               <span
-                className="contactInfo03"
+                className="contactInfo03 email-link"
                 onClick={handleEmailClick}
                 style={{ position: 'relative', cursor: 'pointer' }}
               >
