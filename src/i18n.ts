@@ -29,7 +29,6 @@ i18n
     detection: {
       order: ['path', 'localStorage', 'navigator', 'htmlTag'],
       lookupFromPathIndex: 0,
-      checkWhitelist: true,
     },
 
     interpolation: {
@@ -37,7 +36,7 @@ i18n
     },
 
     // URL 구조: /en/about, /ko/about, /about (일본어 기본)
-    whitelist: ['en', 'ja', 'ko'],
+    supportedLngs: ['en', 'ja', 'ko'],
   });
 
 export default i18n;
