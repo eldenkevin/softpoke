@@ -115,16 +115,19 @@ body {
 /* Footer bigContact 폰트 크기 */
 .bigContact {
   font-size: var(--font-82); /* 영어 기본 82px */
+  font-family: "DM Serif Display", serif;
 }
 
 :lang(ja) .bigContact {
   font-size: calc(var(--font-82) * 0.9); /* 일본어 36px */
   font-weight: 600;
+  font-family: "Noto Serif JP", serif;
 }
 
 :lang(ko) .bigContact {
   font-size: calc(var(--font-82) * 1.3); /* 한국어 33.6px */
   font-weight: 600;
+  font-family: "Noto Serif KR", serif;
 }
 
 /* Home */
