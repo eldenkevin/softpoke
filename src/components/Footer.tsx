@@ -170,6 +170,30 @@ const Footer: React.FC = () => {
               <li>
                 <Link to={getLocalizedPath("/contact")}>{t('header.contact')}</Link>
               </li>
+
+              {/* 모바일 언어 버튼 */}
+              <li className="mobile-language-buttons">
+                <Link
+                  to="/"
+                  className={`lang-btn ${i18n.language === 'ja' ? 'active' : ''}`}
+                >
+                  JP
+                </Link>
+                <span className="lang-divider">|</span>
+                <Link
+                  to="/en"
+                  className={`lang-btn ${i18n.language === 'en' ? 'active' : ''}`}
+                >
+                  EN
+                </Link>
+                <span className="lang-divider">|</span>
+                <Link
+                  to="/ko"
+                  className={`lang-btn ${i18n.language === 'ko' ? 'active' : ''}`}
+                >
+                  KR
+                </Link>
+              </li>
             </ul>
           </div>
           {/* <div className="social">

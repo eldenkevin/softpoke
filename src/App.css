@@ -20,6 +20,11 @@ body {
   font-family: "Open Sans", "Arial", sans-serif;
 }
 
+/* 모바일 언어 버튼 - 기본적으로 숨김 */
+.mobile-language-buttons {
+  display: none;
+}
+
 /* Multi-language Typography */
 :lang(ja) h1,
 :lang(ja) h2 {
@@ -1172,8 +1177,47 @@ body .home-header .menu-dropdown-mobile li a {
 }
 
 @media screen and (max-width: 768px) {
+  h1 {
+    font-size: calc(var(--font-82) * 0.7); /* 57.4px */
+  }
+
   h2 {
     font-size: calc(var(--font-48) * 0.68);
+  }
+
+  .bodyTitle01 {
+    font-size: calc(var(--font-82) * 0.6); /* 49.2px */
+  }
+
+  /* 모바일 언어 버튼 */
+  .mobile-language-buttons {
+    display: block;
+    margin-top: 10px;
+    text-align: left;
+  }
+
+  .lang-btn {
+    color: var(--white-color);
+    font-size: var(--font-14);
+    font-family: "Open Sans", sans-serif;
+    text-decoration: none;
+    padding: 4px 6px;
+    transition: opacity 0.3s ease;
+  }
+
+  .lang-btn:hover {
+    opacity: 0.7;
+  }
+
+  .lang-btn.active {
+    font-weight: 600;
+  }
+
+  .lang-divider {
+    color: var(--light-grey);
+    opacity: 0.4;
+    margin: 0 4px;
+    font-size: var(--font-14);
   }
 
   .bigContact {
