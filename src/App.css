@@ -1,7 +1,6 @@
-
-
 /* Typography */
-h1, h2 {
+h1,
+h2 {
   font-family: "DM Serif Display", serif;
   font-weight: normal;
   color: var(--dark-color);
@@ -22,22 +21,56 @@ body {
 }
 
 /* Multi-language Typography */
-:lang(ja) h1, :lang(ja) h2 { font-family: "Noto Serif JP", serif; }
-:lang(ko) h1, :lang(ko) h2 { font-family: "Noto Serif KR", serif; }
+:lang(ja) h1,
+:lang(ja) h2 {
+  font-family: "Noto Serif JP", serif;
+  font-weight: 600;
+}
+:lang(ko) h1,
+:lang(ko) h2 {
+  font-family: "Noto Serif KR", serif;
+  font-weight: 600;
+}
 
-:lang(ja) body, :lang(ja) p, :lang(ja) span { font-family: "Noto Sans JP", sans-serif; }
-:lang(ko) body, :lang(ko) p, :lang(ko) span { font-family: "Noto Sans KR", sans-serif; }
+:lang(ja) body,
+:lang(ja) p,
+:lang(ja) span {
+  font-family: "Noto Sans JP", sans-serif;
+}
+:lang(ko) body,
+:lang(ko) p,
+:lang(ko) span {
+  font-family: "Noto Sans KR", sans-serif;
+}
 
-:lang(ja) div:not(.homeWriting):not(.homeWriting *) { font-family: "Noto Sans JP", sans-serif; }
-:lang(ko) div:not(.homeWriting):not(.homeWriting *) { font-family: "Noto Sans KR", sans-serif; }
+:lang(ja) div:not(.homeWriting):not(.homeWriting *) {
+  font-family: "Noto Sans JP", sans-serif;
+}
+:lang(ko) div:not(.homeWriting):not(.homeWriting *) {
+  font-family: "Noto Sans KR", sans-serif;
+}
 
 /* Keep header/footer with default font except home page */
-:lang(ja) .navbar a, :lang(ja) .footer a { font-family: "Open Sans", sans-serif; }
-:lang(ko) .navbar a:not(.home-header .navbar a), :lang(ko) .footer a:not(.home-footer .footer a) { font-family: "Open Sans", sans-serif; }
+:lang(ja) .navbar a,
+:lang(ja) .footer a {
+  font-family: "Open Sans", sans-serif;
+}
+:lang(ko) .navbar a:not(.home-header .navbar a),
+:lang(ko) .footer a:not(.home-footer .footer a) {
+  font-family: "Open Sans", sans-serif;
+}
 
 /* Content areas use localized fonts */
-:lang(ja) .content a, :lang(ja) .main a:not(.navbar a):not(.footer a), :lang(ja) li:not(.navbar li):not(.footer li) { font-family: "Noto Sans JP", sans-serif; }
-:lang(ko) .content a, :lang(ko) .main a:not(.navbar a):not(.footer a), :lang(ko) li:not(.navbar li):not(.footer li) { font-family: "Noto Sans KR", sans-serif; }
+:lang(ja) .content a,
+:lang(ja) .main a:not(.navbar a):not(.footer a),
+:lang(ja) li:not(.navbar li):not(.footer li) {
+  font-family: "Noto Sans JP", sans-serif;
+}
+:lang(ko) .content a,
+:lang(ko) .main a:not(.navbar a):not(.footer a),
+:lang(ko) li:not(.navbar li):not(.footer li) {
+  font-family: "Noto Sans KR", sans-serif;
+}
 
 /* Home Page White Theme */
 .home-header,
@@ -67,6 +100,21 @@ body {
 
 .home-footer .bigContact::after {
   background-color: var(--white-color);
+}
+
+/* Footer bigContact 폰트 크기 */
+.bigContact {
+  font-size: var(--font-82); /* 영어 기본 82px */
+}
+
+:lang(ja) .bigContact {
+  font-size: calc(var(--font-82) * 0.9); /* 일본어 36px */
+  font-weight: 600;
+}
+
+:lang(ko) .bigContact {
+  font-size: calc(var(--font-82) * 1.3); /* 한국어 33.6px */
+  font-weight: 600;
 }
 
 /* Home */
@@ -187,32 +235,99 @@ body {
   margin-bottom: 30px;
 }
 
-.logoComma-AboutUs {
+/* 영어 (기본) */
+.logoComma-AboutUs,
+.logoComma-AboutUs-en {
   height: 28px;
   margin-top: -36px;
   margin-left: 252px;
 }
 
-.logoComma-Work {
+/* 일본어 */
+.logoComma-AboutUs-ja {
+  height: 28px;
+  margin-top: -36px;
+  margin-left: 480px;
+}
+
+/* 한국어 */
+.logoComma-AboutUs-ko {
+  height: 28px;
+  margin-top: -36px;
+  margin-left: 300px;
+}
+
+/* Work - 영어 (기본) */
+.logoComma-Work,
+.logoComma-Work-en {
   height: 28px;
   margin-top: -36px;
   margin-left: 226px;
 }
 
-.logoComma-Service {
+/* Work - 일본어 */
+.logoComma-Work-ja {
+  height: 28px;
+  margin-top: -36px;
+  margin-left: 320px;
+}
+
+/* Work - 한국어 */
+.logoComma-Work-ko {
+  height: 28px;
+  margin-top: -36px;
+  margin-left: 280px;
+}
+
+/* Service - 영어 (기본) */
+.logoComma-Service,
+.logoComma-Service-en {
   height: 28px;
   margin-top: -36px;
   margin-left: 264px;
 }
 
-.logoComma-Contact {
+/* Service - 일본어 */
+.logoComma-Service-ja {
+  height: 28px;
+  margin-top: -36px;
+  margin-left: 470px;
+}
+
+/* Service - 한국어 */
+.logoComma-Service-ko {
+  height: 28px;
+  margin-top: -36px;
+  margin-left: 300px;
+}
+
+/* Contact - 영어 (기본) */
+.logoComma-Contact,
+.logoComma-Contact-en {
   height: 28px;
   margin-top: -36px;
   margin-left: 248px;
 }
 
-.logoComma:hover {
+/* Contact - 일본어 */
+.logoComma-Contact-ja {
+  height: 28px;
+  margin-top: -36px;
+  margin-left: 350px;
+}
+
+/* Contact - 한국어 */
+.logoComma-Contact-ko {
+  height: 28px;
+  margin-top: -36px;
+  margin-left: 280px;
+}
+
+.logoComma:hover:not(.logoCommaBottom) {
   animation: spin 0.7s ease-in-out;
+  filter: hue-rotate(180deg) brightness(1.2);
+  transform: scale(1.1);
+  transition: filter 0.3s ease, transform 0.3s ease;
 }
 
 .logoComma-Home.rotate-once {
@@ -240,6 +355,76 @@ body {
   color: var(--white-color);
 }
 
+.typing-subtitle {
+  transition: all 0.3s ease;
+}
+
+.typing-subtitle:hover {
+  background: linear-gradient(
+    90deg,
+    #ff0080,
+    #ff8c00,
+    #ffd700,
+    #00ff80,
+    #00bfff,
+    #8a2be2,
+    #ff1493
+  );
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: rainbowShift 8s ease-in-out infinite;
+}
+
+.typing-cursor {
+  background: linear-gradient(90deg, #ff0080, #00bfff, #ff8c00);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: blink 1.5s ease-in-out infinite,
+    rainbowShift 10s ease-in-out infinite;
+  font-weight: normal;
+}
+
+@keyframes rainbowShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  25% {
+    background-position: 100% 0%;
+  }
+  50% {
+    background-position: 200% 50%;
+  }
+  75% {
+    background-position: 100% 100%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes blink {
+  0%,
+  50% {
+    opacity: 1;
+  }
+  51%,
+  100% {
+    opacity: 0;
+  }
+}
+
+/* 3D Tilt Effect for Work Grid */
+.tilt-card {
+  transition: transform 0.15s ease-out, box-shadow 0.8s ease-out;
+  transform-style: preserve-3d;
+  cursor: pointer;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.05);
+}
+
 .homeWriting {
   font-family: "DM Serif Display", serif;
   font-size: var(--font-76);
@@ -251,11 +436,13 @@ body {
 /* 일본어 homeWriting 폰트 */
 :lang(ja) .homeWriting {
   font-family: "Noto Serif JP", serif;
+  font-weight: 600;
 }
 
 /* 한국어 homeWriting 폰트 */
 :lang(ko) .homeWriting {
   font-family: "Noto Serif KR", serif;
+  font-weight: 600;
 }
 
 .homeWriting .animated-line {
@@ -342,12 +529,14 @@ body {
 :lang(ja) .bodyTitle01,
 :lang(ja) .bodyTitle02 {
   font-family: "Noto Serif JP", serif;
+  font-weight: 600;
 }
 
 /* Korean specific title fonts */
 :lang(ko) .bodyTitle01,
 :lang(ko) .bodyTitle02 {
   font-family: "Noto Serif KR", serif;
+  font-weight: 600;
 }
 
 .bodyDesc01 {
@@ -553,11 +742,11 @@ body {
 
 /* 일본어 텍스트가 길 때의 레이아웃 조정 */
 :lang(ja) .workDetail-p01 {
-  width: 35%;
+  width: 25%;
 }
 
 :lang(ja) .workDetail-p02 {
-  width: 50%;
+  width: 65%;
   padding-right: 3%;
   line-height: 1.4;
 }
@@ -589,6 +778,60 @@ body {
   gap: 28px;
   margin-top: 100px;
   margin-bottom: 80px;
+}
+
+/* Service Checklist Styles */
+.service-checklist {
+  margin-top: 10px;
+}
+
+.service-item {
+  display: flex;
+  align-items: center;
+  padding: 4px 0;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.service-item:hover {
+  transform: translateX(5px);
+}
+
+.checkbox {
+  font-size: var(--font-18);
+  margin-right: 6px;
+  color: var(--light-grey);
+  transition: all 0.3s ease;
+  display: inline-block;
+  width: 24px;
+}
+
+.checkbox.checked {
+  color: var(--accent-color);
+  animation: checkPulse 0.4s ease;
+}
+
+@keyframes checkPulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.item-text {
+  font-size: var(--font-18);
+  color: var(--normal-grey);
+  transition: color 0.3s ease;
+}
+
+.service-item:hover .item-text {
+  color: var(--dark-color);
+  font-weight: 500;
 }
 
 .serviceBox01-Title {
@@ -698,6 +941,44 @@ a.contactInfo03:focus {
   }
 }
 
+/* Email Copy Popup */
+.copied-popup {
+  background: var(--dark-color);
+  color: var(--white-color);
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-size: var(--font-14);
+  font-weight: 500;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  animation: popupFadeIn 0.3s ease-out;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.copied-popup::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 6px solid var(--dark-color);
+}
+
+@keyframes popupFadeIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -90%);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -100%);
+  }
+}
+
 /* Language Dropdown for PC */
 .lang-dropdown-pc {
   position: absolute;
@@ -716,6 +997,25 @@ a.contactInfo03:focus {
   font-size: var(--font-16);
 }
 
+/* Mobile Menu Dropdown */
+.menu-dropdown-mobile {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: var(--white-color);
+  border-radius: 4px;
+  list-style: none;
+  padding: 5px 0;
+  margin-top: 10px;
+  z-index: 1000;
+  min-width: 120px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--lighter-grey);
+  text-align: center;
+  font-size: var(--font-16);
+  white-space: nowrap;
+}
+
 .lang-dropdown-pc li {
   padding: 8px 16px;
   cursor: pointer;
@@ -727,7 +1027,18 @@ a.contactInfo03:focus {
   background-color: #f5f5f5;
 }
 
-/* Styles for Home page language dropdown */
+.menu-dropdown-mobile li {
+  padding: 8px 16px;
+  cursor: pointer;
+  color: var(--normal-grey);
+  transition: background-color 0.2s;
+}
+
+.menu-dropdown-mobile li:hover {
+  background-color: #f5f5f5;
+}
+
+/* Styles for Home page dropdown */
 .home-header .lang-dropdown-pc {
   background-color: rgba(0, 0, 0, 0.3);
   border: none;
@@ -738,6 +1049,20 @@ a.contactInfo03:focus {
 }
 
 .home-header .lang-dropdown-pc li:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.home-header .menu-dropdown-mobile {
+  background-color: rgba(0, 0, 0, 0.3);
+  border: none;
+}
+
+body .home-header .menu-dropdown-mobile li,
+body .home-header .menu-dropdown-mobile li a {
+  color: var(--white-color);
+}
+
+.home-header .menu-dropdown-mobile li:hover {
   background-color: rgba(255, 255, 255, 0.1);
 }
 
@@ -794,6 +1119,18 @@ a.contactInfo03:focus {
     font-size: calc(var(--font-48) * 0.8);
   }
 
+  .bigContact {
+    font-size: calc(var(--font-76) * 0.8); /* 60.8px */
+  }
+
+  :lang(ja) .bigContact {
+    font-size: calc(var(--font-76) * 0.7); /* 일본어 반응형 */
+  }
+
+  :lang(ko) .bigContact {
+    font-size: calc(var(--font-76) * 0.9); /* 한국어 반응형 */
+  }
+
   .logoContainer {
     margin-top: 120px;
   }
@@ -840,6 +1177,18 @@ a.contactInfo03:focus {
 @media screen and (max-width: 768px) {
   h2 {
     font-size: calc(var(--font-48) * 0.68);
+  }
+
+  .bigContact {
+    font-size: calc(var(--font-76) * 0.6); /* 45.6px */
+  }
+
+  :lang(ja) .bigContact {
+    font-size: calc(var(--font-76) * 0.5); /* 일본어 모바일 */
+  }
+
+  :lang(ko) .bigContact {
+    font-size: calc(var(--font-76) * 0.7); /* 한국어 모바일 */
   }
 
   .logoContainer {

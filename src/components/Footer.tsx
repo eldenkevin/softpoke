@@ -6,10 +6,18 @@ import "../App.css";
 
 const Footer: React.FC = () => {
   const location = useLocation(); // 현재 경로를 가져옵니다.
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+
+  const getLocalizedPath = (path: string) => {
+    if (i18n.language === 'ja') return path;
+    return `/${i18n.language}${path}`;
+  };
 
   const [caTime, setCaTime] = useState<string>("");
   const [jpnTime, setJpnTime] = useState<string>("");
+  const [showCopiedPopup, setShowCopiedPopup] = useState(false);
+  const [popupPosition, setPopupPosition] = useState({ x: 0, y: 0 });
+  const [colonVisible, setColonVisible] = useState(true);
 
   const updateTimes = () => {
     const now = new Date();
@@ -34,11 +42,77 @@ const Footer: React.FC = () => {
 
   useEffect(() => {
     updateTimes();
-    const intervalId = setInterval(updateTimes, 60000); // 1초마다 시간 업데이트
+    const intervalId = setInterval(updateTimes, 60000); // 1분마다 시간 업데이트
 
-    return () => clearInterval(intervalId);
+    // 콜론 깜빡임 효과 (1초마다)
+    const colonInterval = setInterval(() => {
+      setColonVisible((prev) => !prev);
+    }, 1000);
+
+    return () => {
+      clearInterval(intervalId);
+      clearInterval(colonInterval);
+    };
   }, []);
 
+  const handleGetInTouchClick = async (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    const email = 'hi@softpoke.jp';
+    const element = e.currentTarget;
+
+    try {
+      await navigator.clipboard.writeText(email);
+
+      const rect = element.getBoundingClientRect();
+      setPopupPosition({
+        x: rect.left + rect.width / 2,
+        y: rect.top - 10
+      });
+      setShowCopiedPopup(true);
+
+      setTimeout(() => {
+        setShowCopiedPopup(false);
+      }, 2000);
+    } catch (err) {
+      console.error('Failed to copy:', err);
+      // Fallback method for older browsers
+      const textArea = document.createElement('textarea');
+      textArea.value = email;
+      textArea.style.position = 'fixed';
+      textArea.style.left = '-999999px';
+      document.body.appendChild(textArea);
+      textArea.focus();
+      textArea.select();
+
+      try {
+        document.execCommand('copy');
+        const rect = element.getBoundingClientRect();
+        setPopupPosition({
+          x: rect.left + rect.width / 2,
+          y: rect.top - 10
+        });
+        setShowCopiedPopup(true);
+
+        setTimeout(() => {
+          setShowCopiedPopup(false);
+        }, 2000);
+      } catch (err2) {
+        console.error('Fallback copy also failed:', err2);
+      }
+
+      document.body.removeChild(textArea);
+    }
+  };
+
+  const getCopiedMessage = () => {
+    const currentLang = i18n.language;
+    if (currentLang === 'ja') {
+      return 'メールアドレスをコピーしました ✨';
+    } else if (currentLang === 'ko') {
+      return '이메일 복사 완료 ✨';
+    }
+    return 'Email copied ✨';
+  };
 
   const isHome = location.pathname === "/" ||
                  location.pathname === "/en" ||
@@ -47,35 +121,54 @@ const Footer: React.FC = () => {
                  location.pathname === "/ko/";
 
   return (
-    // <footer className="footer">
-    <footer className={isHome ? "home-footer" : ""}>
+    <>
+      {showCopiedPopup && (
+        <div
+          className="copied-popup"
+          style={{
+            position: 'fixed',
+            left: popupPosition.x,
+            top: popupPosition.y,
+            transform: 'translate(-50%, -100%)',
+            zIndex: 9999
+          }}
+        >
+          {getCopiedMessage()}
+        </div>
+      )}
+      {/* <footer className="footer"> */}
+      <footer className={isHome ? "home-footer" : ""}>
       <section className="footerContainer">
         <p className="globalTime">
-          BASED IN SILICON VALLEY (USA), JAPAN, KOREA <br />
-          WORKING WORLDWIDE
+          {t('footer.globalLocation')} <br />
+          {t('footer.workingWorldwide')}
           <br />
           <br />
-          CA, USA Pacific Time_ {caTime}
+          {t('footer.caTime')} <span dangerouslySetInnerHTML={{
+            __html: caTime.replace(':', `<span style="opacity: ${colonVisible ? 1 : 0}">:</span>`)
+          }} />
           <br />
-          JAPAN & KOREA JST/KST_ {jpnTime}
+          {t('footer.jpnKorTime')} <span dangerouslySetInnerHTML={{
+            __html: jpnTime.replace(':', `<span style="opacity: ${colonVisible ? 1 : 0}">:</span>`)
+          }} />
           <br />
         </p>
 
         <div className="bottomLink">
           <div className="siteMap">
-            <div className="siteMap01">SITEMAP</div>
+            <div className="siteMap01">{t('footer.sitemap')}</div>
             <ul className="siteMap02">
               <li>
-                <Link to="/service">Service</Link>
+                <Link to={getLocalizedPath("/service")}>{t('header.service')}</Link>
               </li>
               <li>
-                <Link to="/work">Work</Link>
+                <Link to={getLocalizedPath("/work")}>{t('header.work')}</Link>
               </li>
               <li>
-                <Link to="/about">About</Link>
+                <Link to={getLocalizedPath("/about")}>{t('header.about')}</Link>
               </li>
               <li>
-                <Link to="/contact">Contact</Link>
+                <Link to={getLocalizedPath("/contact")}>{t('header.contact')}</Link>
               </li>
             </ul>
           </div>
@@ -101,20 +194,26 @@ const Footer: React.FC = () => {
           </div> */}
         </div>
 
-        <a href="mailto:hi@softpoke.jp" className="bigContact">
-          Get in touch
+        <a href="mailto:hi@softpoke.jp" className="bigContact" onClick={handleGetInTouchClick}>
+          {t('footer.getInTouch')}
         </a>
-        <img src={comma} alt="logoComma" className="logoCommaBottom" />
+        <img
+          src={comma}
+          alt="logoComma"
+          className="logoCommaBottom"
+          style={{ cursor: 'default', pointerEvents: 'none' }}
+        />
         <div className="bottom">
           <div className="copyRight">
             <p>{t('footer.copyright', { year: new Date().getFullYear() })}</p>
           </div>
           <div className="privacy">
-            <Link to="/privacy">{t('footer.privacy')}</Link>
+            <Link to={getLocalizedPath("/privacy")}>{t('footer.privacy')}</Link>
           </div>
         </div>
       </section>
     </footer>
+    </>
   );
 };
 

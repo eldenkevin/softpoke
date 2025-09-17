@@ -7,10 +7,16 @@
     "contact": "문의하기"
   },
   "footer": {
-    "copyright": "© {year} Softpoke. All rights reserved.",
+    "copyright": "© {{year}} Softpoke. All rights reserved.",
     "privacy": "개인정보처리방침",
     "address": "도쿄, 일본",
-    "email": "hello@softpoke.jp"
+    "email": "hello@softpoke.jp",
+    "globalLocation": "실리콘밸리(미국), 일본, 한국 거점",
+    "workingWorldwide": "글로벌 업무 진행",
+    "caTime": "미국 캘리포니아 태평양 표준시_",
+    "jpnKorTime": "일본·한국 JST/KST_",
+    "sitemap": "사이트맵",
+    "getInTouch": "문의하기"
   },
   "home": {
     "lines": [
@@ -97,7 +103,7 @@
     },
     "contactInfo": {
       "title": "문의하기",
-      "description": "우리는 사람과의 연결을 믿습니다.<br />모든 이메일에 정성을 다해 답하며, 의미 있는 소통을 지향합니다.<br />📩 hi@softpoke.jp"
+      "description": "우리는 사람과의 연결을 믿습니다.<br />모든 이메일에 정성을 다해 답하며, 의미 있는 소통을 지향합니다."
     }
   },
   "privacy": {

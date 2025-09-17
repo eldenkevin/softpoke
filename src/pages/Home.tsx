@@ -14,7 +14,12 @@ const Home: React.FC = () => {
   const [activeParagraphs, setActiveParagraphs] = useState<
     Record<number, boolean>
   >({});
-  const logoCommaRef = useRef<HTMLImageElement>(null);
+
+  // 타이핑 효과 상태
+  const [isTyping, setIsTyping] = useState(false);
+  const [displayText, setDisplayText] = useState("");
+  const [showCursor, setShowCursor] = useState(false);
+  const [autoRevertTimer, setAutoRevertTimer] = useState<number | null>(null);
 
   // 번역된 텍스트로 homeWritingLines 생성
   const homeWritingLines = t('home.lines', { returnObjects: true }) as string[];
@@ -39,6 +44,84 @@ const Home: React.FC = () => {
 
   const handleVideoLoaded = () => {
     setLoading(false); // 비디오가 로드되면 로딩 상태를 해제
+  };
+
+  // 타이핑 효과 함수들
+  const originalText = t('home.subtitle');
+  const codeText = "console.log('Building digital excellence... one pixel at a time.');";
+
+  const typeText = async (text: string, speed = 50) => {
+    setDisplayText("");
+    setShowCursor(true);
+
+    for (let i = 0; i <= text.length; i++) {
+      setDisplayText(text.slice(0, i));
+      await new Promise(resolve => setTimeout(resolve, speed));
+    }
+  };
+
+  const handleSubtitleHover = async () => {
+    if (isTyping) return;
+    setIsTyping(true);
+
+    // 기존 타이머 제거
+    if (autoRevertTimer) {
+      clearTimeout(autoRevertTimer);
+      setAutoRevertTimer(null);
+    }
+
+    // 기존 텍스트 지우기
+    for (let i = originalText.length; i >= 0; i--) {
+      setDisplayText(originalText.slice(0, i));
+      await new Promise(resolve => setTimeout(resolve, 20));
+    }
+
+    // 코드 텍스트 타이핑
+    await typeText(codeText, 40);
+    setIsTyping(false);
+
+    // 5초 후 자동으로 원래 텍스트로 돌아가기
+    const timer = setTimeout(async () => {
+      if (!isTyping) {
+        setIsTyping(true);
+
+        // 코드 텍스트 지우기
+        for (let i = codeText.length; i >= 0; i--) {
+          setDisplayText(codeText.slice(0, i));
+          await new Promise(resolve => setTimeout(resolve, 15));
+        }
+
+        // 원래 텍스트 타이핑
+        await typeText(originalText, 30);
+        setShowCursor(false);
+        setIsTyping(false);
+      }
+      setAutoRevertTimer(null);
+    }, 5000);
+
+    setAutoRevertTimer(timer);
+  };
+
+  const handleSubtitleLeave = async () => {
+    if (isTyping) return;
+    setIsTyping(true);
+
+    // 자동 복귀 타이머 제거
+    if (autoRevertTimer) {
+      clearTimeout(autoRevertTimer);
+      setAutoRevertTimer(null);
+    }
+
+    // 코드 텍스트 지우기
+    for (let i = codeText.length; i >= 0; i--) {
+      setDisplayText(codeText.slice(0, i));
+      await new Promise(resolve => setTimeout(resolve, 15));
+    }
+
+    // 원래 텍스트 타이핑
+    await typeText(originalText, 30);
+    setShowCursor(false);
+    setIsTyping(false);
   };
 
   useEffect(() => {
@@ -67,20 +150,10 @@ const Home: React.FC = () => {
     };
   }, []);
 
-  // 최초 로딩 시 로고 컴마 한 바퀴 회전
+  // 초기 텍스트 설정
   useEffect(() => {
-    const el = logoCommaRef.current;
-    if (el) {
-      el.classList.add("rotate-once");
-      const handleAnimationEnd = () => {
-        el.classList.remove("rotate-once");
-      };
-      el.addEventListener("animationend", handleAnimationEnd);
-      return () => {
-        el.removeEventListener("animationend", handleAnimationEnd);
-      };
-    }
-  }, []);
+    setDisplayText(originalText);
+  }, [originalText]);
 
   return (
     <section className="bodySection bodySection-Home">
@@ -109,12 +182,17 @@ const Home: React.FC = () => {
           src={comma}
           alt="logoComma"
           className="logoComma logoComma-Home"
-          ref={logoCommaRef}
         />
       </div>
 
-      <h2 className="homeSubdesc">
-        {t('home.subtitle')}
+      <h2
+        className="homeSubdesc typing-subtitle"
+        onMouseEnter={handleSubtitleHover}
+        onMouseLeave={handleSubtitleLeave}
+        style={{ cursor: 'pointer' }}
+      >
+        {displayText}
+        {showCursor && <span className="typing-cursor">|</span>}
       </h2>
 
       <Divider />

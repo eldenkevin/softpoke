@@ -6,12 +6,20 @@ import { Divider, DividerWithMargin } from '../components/Divider';
 
 const About: React.FC = () => {
   const { t } = useTranslation();
+
   return (
 
     <section className="bodySection bodySection-About">
       <DividerWithMargin />
       <h1 className='bodyTitle01'>{t('about.title1')}</h1>
-      <div> <img src={comma} alt="logoComma" className="logoComma logoComma-AboutUs" /></div>
+      <div>
+        <img
+          src={comma}
+          alt="logoComma"
+          className="logoComma logoComma-AboutUs"
+          style={{ marginTop: '-30px', height: '28px', marginLeft: '11px', cursor: 'pointer' }}
+        />
+      </div>
       <h1 className='bodyTitle02' dangerouslySetInnerHTML={{ __html: t('about.title2') }} />
 
       <h2 className='bodyDesc01'>{t('about.description')}</h2>

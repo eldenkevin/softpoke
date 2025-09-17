@@ -39,7 +39,7 @@ const App: React.FC = () => {
   const { i18n } = useTranslation();
 
   return (
-    <Router future={{ v7_relativeSplatPath: true }}>
+    <Router future={{ v7_relativeSplatPath: true, v7_startTransition: true }}>
       <div lang={i18n.language}>
         <LanguageRoute />
         <Header />

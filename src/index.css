@@ -165,7 +165,6 @@ a:active {
 
 .bigContact {
   font-family: "DM Serif Display", serif;
-  font-size: var(--font-82);
   color: var(--dark-color);
   display: inline-block;
   position: relative;
@@ -271,7 +270,6 @@ ul {
   }
 
   .bigContact {
-    font-size: calc(var(--font-76) * 0.8);
     margin-left: -3px;
   }
 
@@ -312,7 +310,6 @@ ul {
   }
 
   .bigContact {
-    font-size: calc(var(--font-76) * 0.6);
     margin-left: -2x;
   }
 

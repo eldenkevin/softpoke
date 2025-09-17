@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import "../App.css";
 import comma from "../assets/comma.svg";
@@ -6,6 +6,8 @@ import { Divider, DividerWithMargin } from "../components/Divider";
 
 const Service: React.FC = () => {
   const { t } = useTranslation();
+  const [hoveredItems, setHoveredItems] = useState<Set<string>>(new Set());
+
   return (
     <section className="bodySection bodySection-Service">
       <DividerWithMargin />
@@ -15,6 +17,7 @@ const Service: React.FC = () => {
           src={comma}
           alt="logoComma"
           className="logoComma logoComma-Service"
+          style={{ marginTop: '-30px', height: '28px', marginLeft: '11px', cursor: 'pointer' }}
         />
       </div>
       <h1 className="bodyTitle02" dangerouslySetInnerHTML={{ __html: t('service.title2') }} />
@@ -30,7 +33,24 @@ const Service: React.FC = () => {
             <p>{t('service.brand.title')}</p>
           </div>
           <div className="serviceBox01-Desc">
-            <p dangerouslySetInnerHTML={{ __html: t('service.brand.items') }} />
+            <div className="service-checklist">
+              {(t('service.brand.items') as string).split('<br />').map((item, index) => (
+                <div
+                  key={`brand-${index}`}
+                  className="service-item"
+                  onMouseEnter={() => {
+                    const newSet = new Set(hoveredItems);
+                    newSet.add(`brand-${index}`);
+                    setHoveredItems(newSet);
+                  }}
+                >
+                  <span className={`checkbox ${hoveredItems.has(`brand-${index}`) ? 'checked' : ''}`}>
+                    {hoveredItems.has(`brand-${index}`) ? '✓' : '□'}
+                  </span>
+                  <span className="item-text">{item}</span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
         <div className="serviceBox01-Wrap">
@@ -38,7 +58,24 @@ const Service: React.FC = () => {
             <p>{t('service.design.title')}</p>
           </div>
           <div className="serviceBox01-Desc">
-            <p dangerouslySetInnerHTML={{ __html: t('service.design.items') }} />
+            <div className="service-checklist">
+              {(t('service.design.items') as string).split('<br />').map((item, index) => (
+                <div
+                  key={`design-${index}`}
+                  className="service-item"
+                  onMouseEnter={() => {
+                    const newSet = new Set(hoveredItems);
+                    newSet.add(`design-${index}`);
+                    setHoveredItems(newSet);
+                  }}
+                >
+                  <span className={`checkbox ${hoveredItems.has(`design-${index}`) ? 'checked' : ''}`}>
+                    {hoveredItems.has(`design-${index}`) ? '✓' : '□'}
+                  </span>
+                  <span className="item-text">{item}</span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
         <div className="serviceBox01-Wrap">
@@ -46,7 +83,24 @@ const Service: React.FC = () => {
             <p>{t('service.development.title')}</p>
           </div>
           <div className="serviceBox01-Desc">
-            <p dangerouslySetInnerHTML={{ __html: t('service.development.items') }} />
+            <div className="service-checklist">
+              {(t('service.development.items') as string).split('<br />').map((item, index) => (
+                <div
+                  key={`dev-${index}`}
+                  className="service-item"
+                  onMouseEnter={() => {
+                    const newSet = new Set(hoveredItems);
+                    newSet.add(`dev-${index}`);
+                    setHoveredItems(newSet);
+                  }}
+                >
+                  <span className={`checkbox ${hoveredItems.has(`dev-${index}`) ? 'checked' : ''}`}>
+                    {hoveredItems.has(`dev-${index}`) ? '✓' : '□'}
+                  </span>
+                  <span className="item-text">{item}</span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>

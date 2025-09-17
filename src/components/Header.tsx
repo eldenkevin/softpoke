@@ -119,7 +119,7 @@ const Header: React.FC = () => {
     </ul>
   );
 
-  const MenuDropdown = () => <ul className="dropdown-menu">{menuItems}</ul>;
+  const MenuDropdown = () => <ul className="menu-dropdown-mobile">{menuItems}</ul>;
 
   return (
     <header className={isHome ? "home-header" : "navbar-header"}>
@@ -148,7 +148,7 @@ const Header: React.FC = () => {
                 onClick={handleToggle}
                 style={{ cursor: "pointer" }}
               >
-                MENU
+                {currentLang === 'ja' ? 'メニュー' : 'MENU'}
               </p>
             )}
             <div
