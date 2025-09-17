@@ -325,9 +325,6 @@ body {
 
 .logoComma:hover:not(.logoCommaBottom) {
   animation: spin 0.7s ease-in-out;
-  filter: hue-rotate(180deg) brightness(1.2);
-  transform: scale(1.1);
-  transition: filter 0.3s ease, transform 0.3s ease;
 }
 
 .logoComma-Home.rotate-once {
@@ -425,6 +422,7 @@ body {
   box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.05);
 }
 
+/* 기본 영어 homeWriting */
 .homeWriting {
   font-family: "DM Serif Display", serif;
   font-size: var(--font-76);
@@ -433,13 +431,12 @@ body {
   margin-top: 100px;
 }
 
-/* 일본어 homeWriting 폰트 */
+/* 다국어 homeWriting 폰트 override */
 :lang(ja) .homeWriting {
   font-family: "Noto Serif JP", serif;
   font-weight: 600;
 }
 
-/* 한국어 homeWriting 폰트 */
 :lang(ko) .homeWriting {
   font-family: "Noto Serif KR", serif;
   font-weight: 600;

@@ -23,14 +23,21 @@ const LanguageRoute: React.FC = () => {
       const detectedLang = langMatch[1];
       if (['en', 'ko'].includes(detectedLang) && i18n.language !== detectedLang) {
         i18n.changeLanguage(detectedLang);
+        document.documentElement.lang = detectedLang;
       }
     } else {
       // 언어 prefix가 없으면 일본어로 설정
       if (i18n.language !== 'ja') {
         i18n.changeLanguage('ja');
       }
+      document.documentElement.lang = 'ja';
     }
   }, [location.pathname, i18n]);
+
+  // i18n 언어 변경시에도 HTML lang 속성 업데이트
+  useEffect(() => {
+    document.documentElement.lang = i18n.language;
+  }, [i18n.language]);
 
   return null;
 };

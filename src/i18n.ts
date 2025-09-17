@@ -27,10 +27,8 @@ i18n
     debug: false,
 
     detection: {
-      order: ['navigator', 'localStorage', 'path', 'htmlTag'],
+      order: ['path', 'localStorage', 'navigator', 'htmlTag'],
       lookupFromPathIndex: 0,
-      caches: ['localStorage'],
-      checkWhitelist: true,
     },
 
     interpolation: {
