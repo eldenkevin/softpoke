@@ -12,7 +12,7 @@ const Privacy: React.FC = () => {
   return (
     <section className="bodySection bodySection-Privacy">
       <DividerWithMargin />
-      <h1 className="bodyTitle01">{t('privacy.title')}</h1>
+      <h1 className="privacyTitle">{t('privacy.title')}</h1>
       <h2 className="bodyDesc01">{t('privacy.effectiveDate')}</h2>
       <Divider />
 

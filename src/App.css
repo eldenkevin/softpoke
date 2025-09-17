@@ -101,6 +101,11 @@ body {
   background: url("./assets/logo-w.svg") no-repeat center center;
   background-size: contain;
   display: inline-block;
+  transition: transform 0.1s ease;
+}
+
+.navbar__logo {
+  transition: transform 0.1s ease;
 }
 
 .home-footer .bigContact::after {
@@ -224,6 +229,7 @@ body {
   width: auto;
   display: block;
   margin-bottom: -8px;
+  transition: transform 0.1s ease;
 }
 
 .logoComma {
@@ -522,6 +528,13 @@ body {
   font-family: "DM Serif Display", serif;
 }
 
+/* Privacy Policy 전용 타이틀 */
+.privacyTitle {
+  margin-top: 160px;
+  margin-bottom: 20px;
+  font-family: "DM Serif Display", serif;
+}
+
 .bodyTitle02 {
   line-height: 1.2;
   font-family: "DM Serif Display", serif;
@@ -529,14 +542,16 @@ body {
 
 /* Japanese specific title fonts */
 :lang(ja) .bodyTitle01,
-:lang(ja) .bodyTitle02 {
+:lang(ja) .bodyTitle02,
+:lang(ja) .privacyTitle {
   font-family: "Noto Serif JP", serif;
   font-weight: 600;
 }
 
 /* Korean specific title fonts */
 :lang(ko) .bodyTitle01,
-:lang(ko) .bodyTitle02 {
+:lang(ko) .bodyTitle02,
+:lang(ko) .privacyTitle {
   font-family: "Noto Serif KR", serif;
   font-weight: 600;
 }
@@ -1185,8 +1200,8 @@ body .home-header .menu-dropdown-mobile li a {
     font-size: calc(var(--font-48) * 0.68);
   }
 
-  .bodyTitle01 {
-    font-size: calc(var(--font-82) * 0.6); /* 49.2px */
+  .privacyTitle {
+    font-size: calc(var(--font-82) * 0.6); /* 49.2px - Privacy Policy 전용 */
   }
 
   /* 모바일 언어 버튼 */

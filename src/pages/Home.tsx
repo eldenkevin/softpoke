@@ -21,6 +21,9 @@ const Home: React.FC = () => {
   const [showCursor, setShowCursor] = useState(false);
   const [autoRevertTimer, setAutoRevertTimer] = useState<number | null>(null);
 
+  // 로고 레퍼런스
+  const logoRef = useRef<HTMLImageElement>(null);
+
   // 번역된 텍스트로 homeWritingLines 생성
   const homeWritingLines = t('home.lines', { returnObjects: true }) as string[];
 
@@ -177,7 +180,27 @@ const Home: React.FC = () => {
 
       <DividerWithMargin />
       <div className="logoContainer">
-        <img src={logo_w} alt="logoAtHome" className="logoAtHome" />
+        <img
+          ref={logoRef}
+          src={logo_w}
+          alt="logoAtHome"
+          className="logoAtHome"
+          onMouseMove={(e) => {
+            const rect = e.currentTarget.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+
+            const rotateX = (y - centerY) / centerY * -10;
+            const rotateY = (x - centerX) / centerX * 10;
+
+            e.currentTarget.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+          }}
+        />
         <img
           src={comma}
           alt="logoComma"
