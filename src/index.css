@@ -1,4 +1,6 @@
+/* CSS Variables */
 :root {
+  /* Colors */
   --white-color: #ffffff;
   --lighter-grey: #dedede;
   --light-grey: #676767;
@@ -7,6 +9,7 @@
   --darker-color: #1a1b1d;
   --accent-color: #eb3800;
 
+  /* Font Sizes */
   --font-82: 82px;
   --font-76: 76px;
   --font-48: 48px;
@@ -15,50 +18,15 @@
   --font-16: 16px;
   --font-14: 14px;
   --font-12: 12px;
-
-  --openSans-light: 300;
-  --openSans-regular: 400;
-  --openSans-bold: 700;
-  --openSans-Exbold: 800;
-
-  background-color: #fff;
-  color: #676767;
-  color-scheme: light dark;
 }
 
+/* Global Reset */
 * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
 }
 
-.open-sans-regular {
-  font-family: "Open Sans", sans-serif;
-  font-weight: 400;
-  /* Regular */
-}
-
-.open-sans-bold {
-  font-family: "Open Sans", sans-serif;
-  font-weight: 700;
-  /* Bold */
-}
-
-.open-sans-extrabold {
-  font-family: "Open Sans", sans-serif;
-  font-weight: 800;
-  /* Extra-Bold */
-}
-
-.dm-serif-display-regular {
-  font-family: "DM Serif Display", serif;
-  font-weight: 400;
-  font-style: normal;
-}
-
-body {
-  font-family: "Open Sans", sans-serif;
-}
 
 a {
   color: var(--light-grey);

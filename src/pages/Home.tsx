@@ -1,67 +1,41 @@
 import React, { useState, useEffect, useRef } from "react";
+import { useTranslation } from "react-i18next";
 import "../App.css";
 import logo_w from "../assets/logo-w.svg";
 import comma from "../assets/comma.svg";
 import { Divider, DividerWithMargin } from "../components/Divider";
 import mainVideo from "../assets/sf01.mov";
 
-const homeWritingLines = [
-  "We are ",
-  "designers,",
-  "developers,",
-  "strategists,",
-  "visionaries,",
-  "writers,",
-  "and creators.",
-  "\u00A0",
-  "\u00A0",
-  "Dedicated to the art",
-  "of crafting and innovating,",
-  "we are passionately committed",
-  "to excellence",
-  "and endlessly curious.",
-  "\u00A0",
-  "\u00A0",
-  "We collaborate",
-  "with pioneers",
-  "and trailblazers.",
-  "\u00A0",
-  "\u00A0",
-  "We work on ",
-  "passion projects.",
-  "\u00A0",
-  "\u00A0",
-  "We bring ideas",
-  "to life.",
-  "\u00A0",
-  "\u00A0",
-  "Inspired & relentless.",
-];
-
-const paragraphs: string[][] = [];
-let currentParagraph: string[] = [];
-homeWritingLines.forEach((line) => {
-  if (line === "\u00A0") {
-    if (currentParagraph.length > 0) {
-      paragraphs.push(currentParagraph);
-    }
-    paragraphs.push(["\u00A0"]);
-    currentParagraph = [];
-  } else {
-    currentParagraph.push(line);
-  }
-});
-if (currentParagraph.length > 0) {
-  paragraphs.push(currentParagraph);
-}
 
 const Home: React.FC = () => {
+  const { t } = useTranslation();
   const [loading, setLoading] = useState(true); // 로딩 상태 관리
   const paragraphRefs = useRef<(HTMLDivElement | null)[]>([]);
   const [activeParagraphs, setActiveParagraphs] = useState<
     Record<number, boolean>
   >({});
   const logoCommaRef = useRef<HTMLImageElement>(null);
+
+  // 번역된 텍스트로 homeWritingLines 생성
+  const homeWritingLines = t('home.lines', { returnObjects: true }) as string[];
+
+  // 문단 구성 로직
+  const paragraphs: string[][] = [];
+  let currentParagraph: string[] = [];
+  homeWritingLines.forEach((line) => {
+    if (line === "\u00A0") {
+      if (currentParagraph.length > 0) {
+        paragraphs.push(currentParagraph);
+      }
+      paragraphs.push(["\u00A0"]);
+      currentParagraph = [];
+    } else {
+      currentParagraph.push(line);
+    }
+  });
+  if (currentParagraph.length > 0) {
+    paragraphs.push(currentParagraph);
+  }
 
   const handleVideoLoaded = () => {
     setLoading(false); // 비디오가 로드되면 로딩 상태를 해제
@@ -140,9 +114,7 @@ const Home: React.FC = () => {
       </div>
 
       <h2 className="homeSubdesc">
-        {" "}
-        Driving innovation and excellence in design <br />
-        and development, one project at a time.{" "}
+        {t('home.subtitle')}
       </h2>
 
       <Divider />

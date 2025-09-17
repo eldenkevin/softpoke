@@ -1,43 +1,72 @@
-:root {
-  --white-color: #ffffff;
-  --lighter-grey: #dedede;
-  --light-grey: #676767;
-  --normal-grey: #373737;
-  --dark-color: #2a2a2c;
-  --darker-color: #1a1b1d;
-  --accent-color: #eb3800;
 
-  --font-82: 82px;
-  --font-76: 76px;
-  --font-48: 48px;
-  --font-24: 24px;
-  --font-18: 18px;
-  --font-16: 16px;
-  --font-14: 14px;
 
-  background-color: #fff;
-  color: #676767;
-  color-scheme: light dark;
-}
-
-* {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
+/* Typography */
+h1, h2 {
+  font-family: "DM Serif Display", serif;
+  font-weight: normal;
+  color: var(--dark-color);
 }
 
 h1 {
-  font-family: "DM Serif Display", serif;
   font-size: var(--font-82);
-  font-weight: normal;
-  color: #2a2a2c;
 }
 
 h2 {
-  font-family: "DM Serif Display", serif;
   font-size: var(--font-48);
-  font-weight: normal;
-  color: #2a2a2c;
+}
+
+body {
+  background-color: #fff;
+  color: var(--light-grey);
+  font-family: "Open Sans", sans-serif;
+}
+
+/* Multi-language Typography */
+:lang(ja) h1, :lang(ja) h2 { font-family: "Noto Serif JP", serif; }
+:lang(ko) h1, :lang(ko) h2 { font-family: "Noto Serif KR", serif; }
+
+:lang(ja) body, :lang(ja) p, :lang(ja) span { font-family: "Noto Sans JP", sans-serif; }
+:lang(ko) body, :lang(ko) p, :lang(ko) span { font-family: "Noto Sans KR", sans-serif; }
+
+:lang(ja) div:not(.homeWriting):not(.homeWriting *) { font-family: "Noto Sans JP", sans-serif; }
+:lang(ko) div:not(.homeWriting):not(.homeWriting *) { font-family: "Noto Sans KR", sans-serif; }
+
+/* Keep header/footer with default font except home page */
+:lang(ja) .navbar a, :lang(ja) .footer a { font-family: "Open Sans", sans-serif; }
+:lang(ko) .navbar a:not(.home-header .navbar a), :lang(ko) .footer a:not(.home-footer .footer a) { font-family: "Open Sans", sans-serif; }
+
+/* Content areas use localized fonts */
+:lang(ja) .content a, :lang(ja) .main a:not(.navbar a):not(.footer a), :lang(ja) li:not(.navbar li):not(.footer li) { font-family: "Noto Sans JP", sans-serif; }
+:lang(ko) .content a, :lang(ko) .main a:not(.navbar a):not(.footer a), :lang(ko) li:not(.navbar li):not(.footer li) { font-family: "Noto Sans KR", sans-serif; }
+
+/* Home Page White Theme */
+.home-header,
+.home-footer .footerContainer,
+.home-footer .siteMap02 li a,
+.home-footer .social02 li a,
+.home-footer .bigContact,
+.home-footer .privacy a {
+  color: var(--white-color);
+}
+
+.home-header .navbar__menu li ::before {
+  background: var(--white-color);
+}
+
+.home-header .navbar__menu li a {
+  color: var(--white-color);
+}
+
+.home-header .navbar__logo {
+  width: 102px;
+  height: 24px;
+  background: url("./assets/logo-w.svg") no-repeat center center;
+  background-size: contain;
+  display: inline-block;
+}
+
+.home-footer .bigContact::after {
+  background-color: var(--white-color);
 }
 
 /* Home */
@@ -212,17 +241,31 @@ h2 {
 }
 
 .homeWriting {
+  font-family: "DM Serif Display", serif;
   font-size: var(--font-76);
   color: var(--white-color);
   margin-bottom: 150px;
   margin-top: 100px;
 }
 
+/* 일본어 homeWriting 폰트 */
+:lang(ja) .homeWriting {
+  font-family: "Noto Serif JP", serif;
+}
+
+/* 한국어 homeWriting 폰트 */
+:lang(ko) .homeWriting {
+  font-family: "Noto Serif KR", serif;
+}
+
 .homeWriting .animated-line {
   opacity: 0;
   transform: translateY(20px);
   display: block; /* 각 줄을 블록 요소로 만들어 줄 바꿈 */
+  font-family: inherit; /* 부모의 serif 폰트 상속 */
 }
+
+/* homeWriting 라인별 폰트는 부모에서 상속 */
 
 .homeWriting .animated-line.active {
   animation: fadeInSlideUp 0.8s forwards;
@@ -240,9 +283,10 @@ h2 {
   color: #fff;
   border-radius: 4px;
   list-style: none;
-  padding: 5px 0;
+  padding: 10px 0;
   margin: 0;
   z-index: 1000;
+  min-width: 140px;
 }
 
 .dropdown-menu li {
@@ -286,10 +330,24 @@ h2 {
 .bodyTitle01 {
   margin-top: 160px;
   margin-bottom: 20px;
+  font-family: "DM Serif Display", serif;
 }
 
 .bodyTitle02 {
   line-height: 1.2;
+  font-family: "DM Serif Display", serif;
+}
+
+/* Japanese specific title fonts */
+:lang(ja) .bodyTitle01,
+:lang(ja) .bodyTitle02 {
+  font-family: "Noto Serif JP", serif;
+}
+
+/* Korean specific title fonts */
+:lang(ko) .bodyTitle01,
+:lang(ko) .bodyTitle02 {
+  font-family: "Noto Serif KR", serif;
 }
 
 .bodyDesc01 {
@@ -485,10 +543,27 @@ h2 {
 
 .workDetail-p02 {
   width: 48%;
+  padding-right: 2%;
 }
 
 .workDetail-p03 {
   width: 12%;
+  padding-right: 8%;
+}
+
+/* 일본어 텍스트가 길 때의 레이아웃 조정 */
+:lang(ja) .workDetail-p01 {
+  width: 35%;
+}
+
+:lang(ja) .workDetail-p02 {
+  width: 50%;
+  padding-right: 3%;
+  line-height: 1.4;
+}
+
+:lang(ja) .workDetail-p03 {
+  width: 15%;
   padding-right: 8%;
 }
 
@@ -827,11 +902,30 @@ a.contactInfo03:focus {
 
   .workDetail-p02 {
     width: 60%;
+    padding-right: 2%;
   }
 
   .workDetail-p03 {
     width: 12%;
     padding-right: 4%;
+  }
+
+  /* 모바일에서 일본어 레이아웃 */
+  :lang(ja) .workDetail-p01 {
+    width: 30%;
+    padding-left: 3%;
+  }
+
+  :lang(ja) .workDetail-p02 {
+    width: 55%;
+    padding-right: 2%;
+    line-height: 1.3;
+    font-size: calc(var(--font-16) * 0.9);
+  }
+
+  :lang(ja) .workDetail-p03 {
+    width: 15%;
+    padding-right: 3%;
   }
 
   .workDetail-p04 {

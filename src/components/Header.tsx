@@ -1,19 +1,26 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import "../App.css";
-import "./White.css"; // 홈화면에만 적용할 스타일
 
 const Header: React.FC = () => {
+  const { t, i18n } = useTranslation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLangOpen, setIsLangOpen] = useState(false);
-  const [selectedLang, setSelectedLang] = useState("EN");
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const navigate = useNavigate();
   const location = useLocation();
   const dropdownRef = useRef<HTMLDivElement>(null);
 
+  const currentLang = i18n.language;
+  const langLabels = { en: 'EN', ja: 'JP', ko: 'KR' };
+
   const handleLogoClick = () => {
-    navigate("/");
+    if (currentLang === 'ja') {
+      navigate("/");
+    } else {
+      navigate(`/${currentLang}`);
+    }
     setIsMenuOpen(false);
     setIsLangOpen(false);
   };
@@ -29,8 +36,19 @@ const Header: React.FC = () => {
   };
 
   const handleLangSelect = (lang: string) => {
-    setSelectedLang(lang);
+    i18n.changeLanguage(lang);
     setIsLangOpen(false);
+
+    // URL 업데이트 로직 (나중에 라우터 설정 후 구현)
+    const currentPath = location.pathname;
+    const pathWithoutLang = currentPath.replace(/^\/(en|ko)/, '');
+
+    if (lang === 'ja') {
+      navigate(pathWithoutLang || '/');
+    } else {
+      navigate(`/${lang}${pathWithoutLang || ''}`);
+    }
+
   };
 
   useEffect(() => {
@@ -57,30 +75,47 @@ const Header: React.FC = () => {
     };
   }, []);
 
-  const isHome = location.pathname === "/";
+  const isHome = location.pathname === "/" ||
+                 location.pathname === "/en" ||
+                 location.pathname === "/en/" ||
+                 location.pathname === "/ko" ||
+                 location.pathname === "/ko/";
+
+  const getLocalizedPath = (path: string) => {
+    if (currentLang === 'ja') return path;
+    return `/${currentLang}${path}`;
+  };
 
   const menuItems = (
     <>
       <li>
-        <Link to="/service" onClick={() => setIsMenuOpen(false)}>Service</Link>
+        <Link to={getLocalizedPath("/service")} onClick={() => setIsMenuOpen(false)}>
+          {t('header.service')}
+        </Link>
       </li>
       <li>
-        <Link to="/work" onClick={() => setIsMenuOpen(false)}>Work</Link>
+        <Link to={getLocalizedPath("/work")} onClick={() => setIsMenuOpen(false)}>
+          {t('header.work')}
+        </Link>
       </li>
       <li>
-        <Link to="/about" onClick={() => setIsMenuOpen(false)}>About</Link>
+        <Link to={getLocalizedPath("/about")} onClick={() => setIsMenuOpen(false)}>
+          {t('header.about')}
+        </Link>
       </li>
       <li>
-        <Link to="/contact" onClick={() => setIsMenuOpen(false)}>Contact</Link>
+        <Link to={getLocalizedPath("/contact")} onClick={() => setIsMenuOpen(false)}>
+          {t('header.contact')}
+        </Link>
       </li>
     </>
   );
 
   const LangDropdown = () => (
     <ul className="lang-dropdown-pc">
-      <li onClick={() => handleLangSelect("EN")}>EN</li>
-      <li onClick={() => handleLangSelect("JP")}>JP</li>
-      <li onClick={() => handleLangSelect("KR")}>KR</li>
+      <li onClick={() => handleLangSelect("en")}>EN</li>
+      <li onClick={() => handleLangSelect("ja")}>JP</li>
+      <li onClick={() => handleLangSelect("ko")}>KR</li>
     </ul>
   );
 
@@ -105,7 +140,7 @@ const Header: React.FC = () => {
                 onClick={handleToggle}
                 style={{ cursor: "pointer" }}
               >
-                {selectedLang}
+                {langLabels[currentLang as keyof typeof langLabels] || 'JP'}
               </p>
             ) : (
               <p

@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>인플루언서 데이터 파서</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+        }
+        .input-section {
+            margin-bottom: 30px;
+        }
+        textarea {
+            width: 100%;
+            height: 400px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            padding: 15px;
+            font-size: 14px;
+            font-family: monospace;
+            resize: vertical;
+            transition: border-color 0.3s;
+        }
+        textarea:focus {
+            border-color: #667eea;
+            outline: none;
+        }
+        .button-group {
+            text-align: center;
+            margin: 30px 0;
+        }
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 0 10px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+        .results-section {
+            margin-top: 30px;
+        }
+        .stats {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .stats h3 {
+            margin-top: 0;
+            color: #333;
+        }
+        .preview-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        .preview-table th,
+        .preview-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+            font-size: 12px;
+        }
+        .preview-table th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+        .preview-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .status {
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        .status.success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .status.error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .loading {
+            text-align: center;
+            padding: 20px;
+        }
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎯 인플루언서 데이터 파서</h1>
+        
+        <div class="input-section">
+            <h3>📋 NOX 인플루언서 데이터를 아래에 붙여넣으세요:</h3>
+            <textarea 
+                id="rawData" 
+                placeholder="여기에 NOX에서 복사한 인플루언서 데이터를 붙여넣으세요...&#10;&#10;예시:&#10;2.87&#10;阿魚阿貴·旅遊 美食 생활&#10;@ayuagui_&#10;foodtravel美食&#10; 38.93K  472  303&#10; Taiwan&#10;Coop. Potential&#10; 7 /10&#10;Views/Followers&#10;18.5%&#10;&#10;Engagement Rate&#10;3.34%&#10;&#10;Est. Views&#10;26.94K"></textarea>
+        </div>
+
+        <div class="button-group">
+            <button onclick="parseData()" id="parseBtn">🚀 데이터 파싱하기</button>
+            <button onclick="downloadExcel()" id="downloadBtn" disabled>📊 엑셀 다운로드</button>
+            <button onclick="clearData()">🗑️ 초기화</button>
+        </div>
+
+        <div id="loading" class="loading" style="display: none;">
+            <div class="spinner"></div>
+            <p>데이터를 파싱하는 중입니다...</p>
+        </div>
+
+        <div id="results" class="results-section"></div>
+    </div>
+
+    <script>
+        let parsedData = [];
+
+        function parseInfluencerData(rawText) {
+            const blocks = rawText.split(/\n(?=\d+\.\d+\n)/);
+            const influencers = [];
+            
+            blocks.forEach(block => {
+                if (block.trim().length < 50) return;
+                
+                const lines = block.split('\n').map(line => line.trim()).filter(line => line);
+                if (lines.length < 5) return;
+                
+                const influencer = {
+                    '순번': influencers.length + 1,
+                    '점수': '',
+                    '이름': '',
+                    '인스타계정': '',
+                    '태그': '',
+                    '팔로워수': '',
+                    '평균좋아요': '',
+                    '평균댓글': '',
+                    '국적': '',
+                    '협업잠재력': '',
+                    '조회수팔로워비율': '',
+                    '인게이지먼트비율': '',
+                    '예상조회수': ''
+                };
+                
+                let foundNumbers = false;
+                let foundFirstPercent = false;
+                
+                lines.forEach((line, i) => {
+                    // 점수 (첫 번째 라인, 숫자.숫자 형태)
+                    if (i === 0 && /^\d+\.\d+$/.test(line)) {
+                        influencer['점수'] = line;
+                    }
+                    // 이름 (점수 바로 다음, @ 시작 아님)
+                    else if (i === 1 && !line.startsWith('@')) {
+                        influencer['이름'] = line;
+                    }
+                    // 인스타 계정 (@ 시작)
+                    else if (line.startsWith('@')) {
+                        influencer['인스타계정'] = line;
+                    }
+                    // 태그 (인스타 계정 바로 다음, 영문 소문자)
+                    else if (i > 0 && lines[i-1].startsWith('@') && /^[a-z]+/.test(line)) {
+                        influencer['태그'] = line;
+                    }
+                    // 팔로워/좋아요/댓글 숫자 (K, M 포함 3개 숫자)
+                    else if (!foundNumbers) {
+                        const numberMatch = line.match(/^\s*(\d+\.?\d*[KM]?)\s+(\d+\.?\d*[KM]?)\s+(\d+\.?\d*[KM]?)\s*$/);
+                        if (numberMatch) {
+                            influencer['팔로워수'] = numberMatch[1];
+                            influencer['평균좋아요'] = numberMatch[2];
+                            influencer['평균댓글'] = numberMatch[3];
+                            foundNumbers = true;
+                        }
+                    }
+                    // 국적
+                    else if (['Taiwan', 'South Korea', 'Hong Kong SAR China', 'Macau SAR China'].includes(line)) {
+                        influencer['국적'] = line.replace(' SAR China', '');
+                    }
+                    // 협업잠재력 (숫자/10 형태)
+                    else if (line.includes('/10')) {
+                        const coopMatch = line.match(/(\d+)\s*\/\s*10/);
+                        if (coopMatch) {
+                            influencer['협업잠재력'] = `${coopMatch[1]}/10`;
+                        }
+                    }
+                    // 퍼센트 값들
+                    else if (line.includes('%')) {
+                        if (!foundFirstPercent) {
+                            influencer['조회수팔로워비율'] = line;
+                            foundFirstPercent = true;
+                        } else if (!influencer['인게이지먼트비율']) {
+                            influencer['인게이지먼트비율'] = line;
+                        }
+                    }
+                    // 예상조회수 (K, M 포함하고 앞 라인에 Views 있음)
+                    else if ((line.includes('K') || line.includes('M')) && 
+                            i > 0 && lines[i-1].includes('Views')) {
+                        influencer['예상조회수'] = line;
+                    }
+                });
+                
+                // 최소 조건: 이름이나 인스타 계정이 있어야 함
+                if (influencer['이름'] || influencer['인스타계정']) {
+                    influencers.push(influencer);
+                }
+            });
+            
+            return influencers;
+        }
+
+        function convertToNumber(value) {
+            if (!value) return 0;
+            value = String(value).replace(',', '');
+            if (value.includes('K')) {
+                return parseFloat(value.replace('K', '')) * 1000;
+            } else if (value.includes('M')) {
+                return parseFloat(value.replace('M', '')) * 1000000;
+            } else {
+                try {
+                    return parseFloat(value);
+                } catch {
+                    return 0;
+                }
+            }
+        }
+
+        function parseData() {
+            const rawData = document.getElementById('rawData').value.trim();
+            if (!rawData) {
+                alert('데이터를 입력해주세요!');
+                return;
+            }
+
+            document.getElementById('loading').style.display = 'block';
+            document.getElementById('results').innerHTML = '';
+            document.getElementById('parseBtn').disabled = true;
+
+            setTimeout(() => {
+                try {
+                    parsedData = parseInfluencerData(rawData);
+                    
+                    // 팔로워 수 기준으로 정렬
+                    parsedData.sort((a, b) => convertToNumber(b['팔로워수']) - convertToNumber(a['팔로워수']));
+                    
+                    // 순번 재정렬
+                    parsedData.forEach((item, index) => {
+                        item['순번'] = index + 1;
+                    });
+
+                    displayResults();
+                    document.getElementById('downloadBtn').disabled = false;
+                    
+                    document.getElementById('results').innerHTML += 
+                        `<div class="status success">✅ ${parsedData.length}명의 인플루언서 데이터가 성공적으로 파싱되었습니다!</div>`;
+                        
+                } catch (error) {
+                    document.getElementById('results').innerHTML = 
+                        `<div class="status error">❌ 파싱 중 오류가 발생했습니다: ${error.message}</div>`;
+                } finally {
+                    document.getElementById('loading').style.display = 'none';
+                    document.getElementById('parseBtn').disabled = false;
+                }
+            }, 500);
+        }
+
+        function displayResults() {
+            if (parsedData.length === 0) return;
+
+            // 통계 정보
+            const countryStats = {};
+            let totalFollowers = 0;
+            let followerCount = 0;
+
+            parsedData.forEach(item => {
+                const country = item['국적'];
+                if (country) {
+                    countryStats[country] = (countryStats[country] || 0) + 1;
+                }
+                
+                const followers = convertToNumber(item['팔로워수']);
+                if (followers > 0) {
+                    totalFollowers += followers;
+                    followerCount++;
+                }
+            });
+
+            const avgFollowers = followerCount > 0 ? Math.round(totalFollowers / followerCount) : 0;
+
+            let statsHtml = `
+                <div class="stats">
+                    <h3>📊 통계 정보</h3>
+                    <p><strong>총 인플루언서 수:</strong> ${parsedData.length}명</p>
+                    <p><strong>평균 팔로워 수:</strong> ${avgFollowers.toLocaleString()}명</p>
+                    <p><strong>국가별 분포:</strong></p>
+                    <ul>
+            `;
+            
+            for (const [country, count] of Object.entries(countryStats)) {
+                statsHtml += `<li>${country}: ${count}명</li>`;
+            }
+            
+            statsHtml += `</ul></div>`;
+
+            // 미리보기 테이블 (상위 10개)
+            const previewData = parsedData.slice(0, 10);
+            let tableHtml = `
+                <h3>🏆 상위 ${Math.min(10, parsedData.length)}명 미리보기</h3>
+                <table class="preview-table">
+                    <thead>
+                        <tr>
+                            <th>순번</th>
+                            <th>이름</th>
+                            <th>인스타계정</th>
+                            <th>팔로워수</th>
+                            <th>국적</th>
+                            <th>인게이지먼트비율</th>
+                            <th>협업잠재력</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+            
+            previewData.forEach(item => {
+                tableHtml += `
+                    <tr>
+                        <td>${item['순번']}</td>
+                        <td>${item['이름']}</td>
+                        <td>${item['인스타계정']}</td>
+                        <td>${item['팔로워수']}</td>
+                        <td>${item['국적']}</td>
+                        <td>${item['인게이지먼트비율']}</td>
+                        <td>${item['협업잠재력']}</td>
+                    </tr>
+                `;
+            });
+            
+            tableHtml += '</tbody></table>';
+
+            document.getElementById('results').innerHTML = statsHtml + tableHtml;
+        }
+
+        function downloadExcel() {
+            if (parsedData.length === 0) {
+                alert('파싱된 데이터가 없습니다!');
+                return;
+            }
+
+            const ws = XLSX.utils.json_to_sheet(parsedData);
+            const wb = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(wb, ws, '인플루언서_데이터');
+
+            const now = new Date();
+            const timestamp = now.getFullYear() + 
+                            String(now.getMonth() + 1).padStart(2, '0') + 
+                            String(now.getDate()).padStart(2, '0') + '_' +
+                            String(now.getHours()).padStart(2, '0') + 
+                            String(now.getMinutes()).padStart(2, '0');
+
+            XLSX.writeFile(wb, `인플루언서_데이터_${timestamp}.xlsx`);
+        }
+
+        function clearData() {
+            document.getElementById('rawData').value = '';
+            document.getElementById('results').innerHTML = '';
+            parsedData = [];
+            document.getElementById('downloadBtn').disabled = true;
+        }
+
+        // 페이지 로드시 샘플 데이터 표시
+        window.onload = function() {
+            const sampleData = `2.87
+阿魚阿貴·旅遊 美食 생활
+@ayuagui_
+foodtravel美食
+ 38.93K  472  303
+ Taiwan
+Coop. Potential
+ 7 /10
+Views/Followers
+18.5%
+
+Engagement Rate
+3.34%
+
+Est. Views
+26.94K
+
+2.4
+王俊之
+@chefdinnerplan
+chefbakingfood
+ 49.29K  3.44K  1.67K
+ Taiwan
+Coop. Potential
+ 5 /10
+Views/Followers
+9.43%
+
+Engagement Rate
+2.06%
+
+Est. Views
+21.69K`;
+
+            document.getElementById('rawData').placeholder = 
+                "여기에 NOX에서 복사한 인플루언서 데이터를 붙여넣으세요...\n\n" + 
+                "샘플 데이터를 보려면 아래 '샘플 데이터 로드' 버튼을 클릭하세요.";
+        };
+    </script>
+</body>
+</html>

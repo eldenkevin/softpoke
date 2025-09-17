@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import comma from "../assets/comma.svg";
 import "../App.css";
-import "./White.css"; // 홈화면에만 적용할 스타일
 
 const Footer: React.FC = () => {
   const location = useLocation(); // 현재 경로를 가져옵니다.
+  const { t } = useTranslation();
 
   const [caTime, setCaTime] = useState<string>("");
   const [jpnTime, setJpnTime] = useState<string>("");
@@ -38,7 +39,12 @@ const Footer: React.FC = () => {
     return () => clearInterval(intervalId);
   }, []);
 
-  const isHome = location.pathname === "/";
+
+  const isHome = location.pathname === "/" ||
+                 location.pathname === "/en" ||
+                 location.pathname === "/en/" ||
+                 location.pathname === "/ko" ||
+                 location.pathname === "/ko/";
 
   return (
     // <footer className="footer">
@@ -90,7 +96,7 @@ const Footer: React.FC = () => {
               </li>
               <li>
                 <a href="/">Dribbble</a>
-              </li>
+              </li>supa
             </ul>
           </div>
         </div>
@@ -101,10 +107,10 @@ const Footer: React.FC = () => {
         <img src={comma} alt="logoComma" className="logoCommaBottom" />
         <div className="bottom">
           <div className="copyRight">
-            <p>&copy; 2024 Project Softpoke. All rights reserved.</p>
+            <p>{t('footer.copyright', { year: new Date().getFullYear() })}</p>
           </div>
           <div className="privacy">
-            <Link to="/privacy">Privacy Policy</Link>
+            <Link to="/privacy">{t('footer.privacy')}</Link>
           </div>
         </div>
       </section>

@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from "react";
+import { useTranslation } from "react-i18next";
 import "../App.css";
 import comma from "../assets/comma.svg";
 import { Divider, DividerWithMargin } from "../components/Divider";
@@ -13,6 +14,7 @@ import imgC08 from "../assets/img-c08.jpg";
 import imgC09 from "../assets/img-c09.jpg";
 
 const Contact: React.FC = () => {
+  const { t } = useTranslation();
   const photoGridItemsRef = useRef<(HTMLImageElement | null)[]>([]);
 
   useEffect(() => {
@@ -47,7 +49,7 @@ const Contact: React.FC = () => {
   return (
     <section className="bodySection bodySection-Work">
       <DividerWithMargin />
-      <h1 className="bodyTitle01">Elevate</h1>
+      <h1 className="bodyTitle01">{t('contact.title1')}</h1>
       <div>
         <img
           src={comma}
@@ -55,28 +57,14 @@ const Contact: React.FC = () => {
           className="logoComma logoComma-Contact"
         />
       </div>
-      <h1 className="bodyTitle02">
-        your brand strategy
-        <br />
-        and UX/UI.
-      </h1>
+      <h1 className="bodyTitle02" dangerouslySetInnerHTML={{ __html: t('contact.title2') }} />
 
       <div className="workText01">
         <div>
-          <p className="workText02">ARE YOU READY?</p>
+          <p className="workText02">{t('contact.areYouReady.title')}</p>
         </div>
         <div>
-          <p className="workText03">
-            We are thrilled to collaborate with creative, open-minded
-            individuals who have innovative ideas and exciting new projects. We
-            choose our partners carefully because we believe that building
-            personal relationships based on trust is crucial.
-            <br />
-            We are dedicated to providing a personalized and unique approach to
-            each project by working in small, focused teams tailored to meet
-            each client and project&apos;s specific needs. If you&apos;re ready
-            to work together, send us an email!
-          </p>
+          <p className="workText03" dangerouslySetInnerHTML={{ __html: t('contact.areYouReady.description') }} />
         </div>
 
         <div className="photo-grid">
@@ -94,17 +82,10 @@ const Contact: React.FC = () => {
         <div className="contactInfo01">
           <div className="emptyContact01"></div>
           <div className="contactInfo02">
-            <p>
-              We believe in the power of personal connections. <br />
-              We take pride in responding to each email personally, ensuring
-              every interaction is meaningful.
-              <br />
-              Reach out, say hi, and let&apos;s start a conversation about how
-              we can bring your ideas to life.
-            </p>
+            <p dangerouslySetInnerHTML={{ __html: t('contact.contactInfo.description') }} />
             <p className="contactInfo03">
               <br />
-              Contact us
+              {t('contact.contactInfo.title')}
               <br />
               <a href="mailto:hi@softpoke.jp" className="contactInfo03">
                 hi@softpoke.jp

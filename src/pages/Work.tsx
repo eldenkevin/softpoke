@@ -1,11 +1,39 @@
 import React, { useEffect, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useLocation } from 'react-router-dom';
 import '../App.css';
 import comma from '../assets/comma.svg';
 import { Divider, DividerWithMargin } from '../components/Divider';
 
 const Work: React.FC = () => {
-
+  const { t, i18n } = useTranslation();
+  const location = useLocation();
   const gridItemsRef = useRef<(HTMLDivElement | null)[]>([]);
+
+  // 다국어 설명 매핑
+  const getLocalizedDescription = (englishDesc: string): string => {
+    const isJapanese = i18n.language === 'ja' || location.pathname.startsWith('/ja');
+
+    if (!isJapanese) return englishDesc;
+
+    // 일본어 번역 매핑
+    const translations: { [key: string]: string } = {
+      'Multi Platform': 'マルチプラットフォーム展開',
+      'Brand Strategy': 'ブランディング戦略立案',
+      'Prototype': 'プロトタイプ開発',
+      'Creative Direction': 'クリエイティブディレクション監修',
+      'Application': 'アプリケーション開発',
+      'E-commerce': 'ECプラットフォーム構築',
+      'iOS/Android': 'iOS/Android'
+    };
+
+    let translatedDesc = englishDesc;
+    Object.entries(translations).forEach(([en, ja]) => {
+      translatedDesc = translatedDesc.replace(new RegExp(en, 'g'), ja);
+    });
+
+    return translatedDesc;
+  };
 
   const workData = [
     {
@@ -105,22 +133,19 @@ const Work: React.FC = () => {
 
     <section className="bodySection bodySection-Work">
       <DividerWithMargin />
-      <h1 className='bodyTitle01'>Design</h1>
+      <h1 className='bodyTitle01'>{t('work.title1')}</h1>
       <div>
         <img src={comma} alt="logoComma" className="logoComma logoComma-Work" />
       </div>
-      <h1 className='bodyTitle02'>with the power<br />
-        to transform
-        business.</h1>
+      <h1 className='bodyTitle02' dangerouslySetInnerHTML={{ __html: t('work.title2') }} />
 
       <div className='workText01'>
         <div>
-          <p className='workText02'>OUR WORK</p>
+          <p className='workText02'>{t('work.ourWork.title')}</p>
 
         </div>
         <div>
-          <p className='workText03'>We empower purpose-driven businesses to become industry leaders through strategic design and robust development.
-            As a trusted growth partner, we offer tailored UI/UX design and comprehensive development services that evolve with your project. Our expert team is dedicated to delivering impactful, scalable digital solutions with precision and creativity.</p>
+          <p className='workText03'>{t('work.ourWork.description')}</p>
 
         </div>
    
@@ -145,7 +170,7 @@ const Work: React.FC = () => {
                 <li>
                   <div className='workDetail'>
                     <p className='workDetail-p01'>{work.title}</p>
-                    <p className='workDetail-p02'>{work.description}</p>
+                    <p className='workDetail-p02'>{getLocalizedDescription(work.description)}</p>
                     <p className='workDetail-p03'>{work.year}</p>
                   </div>
                 </li>
@@ -154,7 +179,7 @@ const Work: React.FC = () => {
             <Divider />
             <li>
               <div className='workDetail'>
-                <p className='workDetail-p04'>+ Over 10 companies</p>
+                <p className='workDetail-p04'>{t('work.overCompanies')}</p>
                 <p className='workDetail-p02'></p>
                 <p className='workDetail-p03'></p>
               </div>
