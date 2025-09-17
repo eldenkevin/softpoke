@@ -79,7 +79,7 @@ const Footer: React.FC = () => {
               </li>
             </ul>
           </div>
-          <div className="social">
+          {/* <div className="social">
             <div className="social01">SOCIAL</div>
             <ul className="social02">
               <li>
@@ -98,7 +98,7 @@ const Footer: React.FC = () => {
                 <a href="/">Dribbble</a>
               </li>supa
             </ul>
-          </div>
+          </div> */}
         </div>
 
         <a href="mailto:hi@softpoke.jp" className="bigContact">
