@@ -27,16 +27,20 @@ i18n
     debug: false,
 
     detection: {
-      order: ['path', 'localStorage', 'navigator', 'htmlTag'],
+      order: ['navigator', 'localStorage', 'path', 'htmlTag'],
       lookupFromPathIndex: 0,
+      caches: ['localStorage'],
+      checkWhitelist: true,
     },
 
     interpolation: {
       escapeValue: false,
     },
 
-    // URL 구조: /en/about, /ko/about, /about (일본어 기본)
+    // 브라우저 언어 매핑: en-US -> en, ko-KR -> ko, ja-JP -> ja
     supportedLngs: ['en', 'ja', 'ko'],
+    nonExplicitSupportedLngs: true,
+    load: 'languageOnly', // en-US를 en으로, ko-KR을 ko로 매핑
   });
 
 export default i18n;

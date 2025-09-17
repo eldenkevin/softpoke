@@ -1,7 +1,7 @@
 /* Typography */
 h1,
 h2 {
-  font-family: "DM Serif Display", serif;
+  font-family: "DM Serif Display", "Times New Roman", serif;
   font-weight: normal;
   color: var(--dark-color);
 }
@@ -17,7 +17,7 @@ h2 {
 body {
   background-color: #fff;
   color: var(--light-grey);
-  font-family: "Open Sans", sans-serif;
+  font-family: "Open Sans", "Arial", sans-serif;
 }
 
 /* Multi-language Typography */
