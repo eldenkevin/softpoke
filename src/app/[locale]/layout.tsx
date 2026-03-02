@@ -27,7 +27,7 @@ export default async function LocaleLayout({
   const messages = await getMessages();
 
   return (
-    <>
+    <html lang={locale}>
       <head>
         {process.env.NODE_ENV === 'development' && (
           <Script
@@ -43,16 +43,18 @@ export default async function LocaleLayout({
           rel="stylesheet"
         />
       </head>
-      <NextIntlClientProvider messages={messages}>
-        <div lang={locale}>
-          <Header />
-          <main className="main">
-            {children}
-          </main>
-          <Footer />
-        </div>
-      </NextIntlClientProvider>
-      <Analytics />
-    </>
+      <body>
+        <NextIntlClientProvider messages={messages}>
+          <div lang={locale}>
+            <Header />
+            <main className="main">
+              {children}
+            </main>
+            <Footer />
+          </div>
+        </NextIntlClientProvider>
+        <Analytics />
+      </body>
+    </html>
   );
 }
