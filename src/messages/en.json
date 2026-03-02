@@ -1,0 +1,128 @@
+{
+  "header": {
+    "home": "Home",
+    "about": "About",
+    "service": "Service",
+    "work": "Work",
+    "contact": "Contact"
+  },
+  "footer": {
+    "copyright": "© {year} Softpoke. All rights reserved.",
+    "privacy": "Privacy Policy",
+    "address": "Tokyo, Japan",
+    "email": "hello@softpoke.jp",
+    "globalLocation": "BASED IN SILICON VALLEY (USA), JAPAN, KOREA",
+    "workingWorldwide": "WORKING WORLDWIDE",
+    "caTime": "CA, USA Pacific Time_",
+    "jpnKorTime": "JAPAN & KOREA JST/KST_",
+    "sitemap": "SITEMAP",
+    "getInTouch": "Get in touch"
+  },
+  "home": {
+    "lines": [
+      "We are ",
+      "designers,",
+      "developers,",
+      "strategists,",
+      "visionaries,",
+      "writers,",
+      "and creators.",
+      "\u00A0",
+      "\u00A0",
+      "Dedicated to the art",
+      "of crafting and innovating,",
+      "we are passionately committed",
+      "to excellence",
+      "and endlessly curious.",
+      "\u00A0",
+      "\u00A0",
+      "We collaborate",
+      "with pioneers",
+      "and trailblazers.",
+      "\u00A0",
+      "\u00A0",
+      "We work on ",
+      "passion projects.",
+      "\u00A0",
+      "\u00A0",
+      "We bring ideas",
+      "to life.",
+      "\u00A0",
+      "\u00A0",
+      "Inspired & relentless."
+    ],
+    "subtitle": "Driving innovation and excellence in design and development, one project at a time."
+  },
+  "about": {
+    "title1": "Diverse",
+    "title2": "experiences<br />cultivate expertise.",
+    "description": "Delivering user experiences that not only meet but exceed expectations, captivating users through exceptional design.",
+    "ourStory": {
+      "title": "OUR STORY",
+      "content": "<p>Since 2023, Softpoke Studio has been dedicated to transforming digital design and development. We have collaborated with over 12 startups and enterprises on more than 23 projects, providing custom UI/UX design and comprehensive development from scratch. Our expertise and technology are here to elevate your success.</p><p><br />Our design and development experience spans geographies, cultures, industries, and business objectives. We think systematically, build strategic plans, and design scalable digital products with speed and precision. Regardless of industry or platform, we deliver optimal solutions at every stage.</p><p><br /><br /><br />At Softpoke Studio, we believe that a brand with impact has a soul. It's purposeful, authentic, unique, and transparent. Above all, it adapts and evolves over time. A brand with soul is expansive and connects deeply with others. Let's create a brand with lasting value, together.</p><p><br />We achieve the ideal user experience by creating visually appealing UI that adheres to OS guidelines (iOS, Android, etc.), while prioritizing the user. This ensures we deliver both functionality and beauty through design.</p><p><br />If you require development as well, we can connect you with our in-house developer for smaller projects or trusted development partners for larger projects.</p><p><br /><br /><br />We are committed to continuous innovation and improvement, offering comprehensive UI/UX design and development expertise that spans visual aesthetics to the functional user journey. Our approach goes beyond merely following the project brief. We focus on addressing the core needs of businesses, understanding that users ultimately care about the results. We dedicate ourselves to enhancing every aspect of the user experience, treating each project as our own, and never compromising on quality.</p>"
+    }
+  },
+  "service": {
+    "title1": "Experts",
+    "title2": "A dedicated team <br /> of industry specialists.",
+    "description": "We deliver a wide array of services tailored to your evolving needs, enabling your business to grow and scale seamlessly.",
+    "brand": {
+      "title": "BRAND",
+      "items": "Brand Strategy<br />Logo & Identity<br />Style Guides<br />Voice & Tone<br />Brand Research"
+    },
+    "design": {
+      "title": "DESIGN",
+      "items": "UX Design<br />UI Design<br />Web Design<br />Interaction Design<br />Art Direction<br />Creative Direction"
+    },
+    "development": {
+      "title": "DEVELOPMENT",
+      "items": "Front-end<br />Back-end<br />Mobile App"
+    },
+    "process": {
+      "discovery": {
+        "title": "Discovery",
+        "description": "The discovery process starts with an initial meeting, either in person or over the phone, where we learn about the client's company and explain our process. Afterwards, the client completes a questionnaire to help us understand their design needs.<br /><br />Softpoke then conducts a branding presentation to uncover the brand's personality, values, and essence. Based on this, our team begins the research and discovery phase, seeking graphic benchmarks and gaining deeper insights into the industry."
+      },
+      "conceptualization": {
+        "title": "Conceptualization",
+        "description": "After the discovery phase is complete, we create a strategy document that captures your brand's unique voice, ideal client, brand words, and style.<br /><br />Using this strategy as a reference, Softpoke begins concept development. We generate multiple concept options, and the client selects the most compelling one. From there, we proceed in the chosen direction."
+      },
+      "creation": {
+        "title": "Creation",
+        "description": "Once a concept is approved, we iteratively refine it until perfect, creating essential content to meet your needs. Softpoke ensures deliverables are launch-ready. Simultaneously, our development team builds robust, scalable digital solutions. We guarantee seamless integration and functionality across all platforms, delivering high-quality products."
+      }
+    }
+  },
+  "work": {
+    "title1": "Design",
+    "title2": "with the power<br />to transform business.",
+    "ourWork": {
+      "title": "OUR WORK",
+      "description": "We empower purpose-driven businesses to become industry leaders through strategic design and robust development. As a trusted growth partner, we offer tailored UI/UX design and comprehensive development services that evolve with your project. Our expert team is dedicated to delivering impactful, scalable digital solutions with precision and creativity."
+    },
+    "overCompanies": "+ Over 10 companies"
+  },
+  "contact": {
+    "title1": "Elevate",
+    "title2": "your brand strategy<br />and UX/UI.",
+    "areYouReady": {
+      "title": "ARE YOU READY?",
+      "description": "We are thrilled to collaborate with creative, open-minded individuals who have innovative ideas and exciting new projects. We choose our partners carefully because we believe that building personal relationships based on trust is crucial.<br />We are dedicated to providing a personalized and unique approach to each project by working in small, focused teams tailored to meet each client and project's specific needs. If you're ready to work together, send us an email!"
+    },
+    "contactInfo": {
+      "title": "Contact us",
+      "description": "We believe in the power of personal connections. <br />We take pride in responding to each email personally, ensuring every interaction is meaningful."
+    }
+  },
+  "privacy": {
+    "title": "Privacy Policy",
+    "effectiveDate": "Effective Date: Feb 1, 2025",
+    "content": "<p>At Softpoke, we respect your privacy and are committed to protecting it.</p><br /><h3>1. What We Collect</h3><p>We only collect the information you choose to share with us—like your name, email, and project details—when you contact us.</p><p>We also use basic analytics (e.g. Google Analytics) to understand how visitors use our website. This data is anonymous and used only to improve our site.</p><br /><h3>2. How We Use It</h3><p>We use your information to:</p><ul><li>Respond to your inquiries</li><li>Collaborate on projects</li><li>Improve our services</li></ul><p>We do not sell or share your personal data with third parties.</p><br /><h3>3. Your Rights</h3><p>If you'd like to access, update, or delete your data, just email us at <a href=\"mailto:hi@softpoke.jp\">hi@softpoke.jp</a></p><br /><h3>4. Security</h3><p>We take reasonable steps to keep your information secure. If something ever goes wrong, we'll let you know.</p><br /><h3>5. That's It</h3><p>No hidden tracking, no spam, no selling data. Just respectful, honest work.</p><br /><p>Questions? Feel free to reach out: <a href=\"mailto:hi@softpoke.jp\">hi@softpoke.jp</a></p>"
+  },
+  "common": {
+    "readMore": "Read More",
+    "learnMore": "Learn More",
+    "getStarted": "Get Started",
+    "loading": "Loading..."
+  }
+}

@@ -1,26 +1,24 @@
-import React from 'react';
-import ah01 from '../assets/ah01.svg'
-
-
-const Divider: React.FC = () => {
-    return (
-        <div className='ah01'>
-            <img src={ah01} alt="ahStart" className="ahStart" />
-            <img src={ah01} alt="ahEnd" className="ahEnd" />
-        </div>
-
-    );
+const Divider = () => {
+  return (
+    <div className="ah01">
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src="/images/ah01.svg" alt="ahStart" className="ahStart" />
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src="/images/ah01.svg" alt="ahEnd" className="ahEnd" />
+    </div>
+  );
 };
 
-
-const DividerWithMargin: React.FC = () => {
-    const style = { marginTop: '-10px' };
-    return (
-        <div className='ah01' style={style}>
-            <img src={ah01} alt="ahStart" className="ahStart" />
-            <img src={ah01} alt="ahEnd" className="ahEnd" />
-        </div>
-    );
+const DividerWithMargin = () => {
+  const style = { marginTop: '-10px' };
+  return (
+    <div className="ah01" style={style}>
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src="/images/ah01.svg" alt="ahStart" className="ahStart" />
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src="/images/ah01.svg" alt="ahEnd" className="ahEnd" />
+    </div>
+  );
 };
 
 export { Divider, DividerWithMargin };

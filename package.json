@@ -1,37 +1,26 @@
 {
-  "name": "vite-project",
+  "name": "softpoke",
   "private": true,
-  "version": "0.0.0",
-  "type": "module",
+  "version": "1.0.0",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc -b && vite build",
-    "lint": "eslint . --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
   },
   "dependencies": {
     "@vercel/analytics": "^1.5.0",
-    "i18next": "^25.5.2",
-    "i18next-browser-languagedetector": "^8.2.0",
+    "next": "^14.2.18",
+    "next-intl": "^3.25.3",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "react-i18next": "^15.7.3",
-    "react-router-dom": "^6.25.1"
+    "react-dom": "^18.3.1"
   },
   "devDependencies": {
+    "@types/node": "^20.11.0",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
-    "@typescript-eslint/eslint-plugin": "latest",
-    "@typescript-eslint/parser": "latest",
-    "@vitejs/plugin-react": "^4.3.1",
     "eslint": "^8.57.0",
-    "eslint-plugin-react-hooks": "^4.6.2",
-    "eslint-plugin-react-refresh": "^0.4.7",
-    "typescript": "^5.2.2",
-    "vite": "^5.3.5"
-  },
-  "description": "This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.",
-  "main": "index.js",
-  "author": "",
-  "license": "ISC"
+    "eslint-config-next": "^14.2.18",
+    "typescript": "^5.2.2"
+  }
 }
