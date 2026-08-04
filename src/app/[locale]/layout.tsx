@@ -1,5 +1,5 @@
 import { NextIntlClientProvider } from 'next-intl';
-import { getMessages } from 'next-intl/server';
+import { getMessages, setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import Script from 'next/script';
 import { Analytics } from '@vercel/analytics/react';
@@ -23,6 +23,11 @@ export default async function LocaleLayout({
   if (!routing.locales.includes(locale as any)) {
     notFound();
   }
+
+  // Without this, getMessages() resolves the locale from headers() — a dynamic
+  // API that opts this whole subtree out of static rendering, so every page
+  // would be re-rendered by a server function on every request.
+  setRequestLocale(locale);
 
   const messages = await getMessages();
 

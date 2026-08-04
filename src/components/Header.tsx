@@ -11,39 +11,43 @@ const Header = () => {
   const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLangOpen, setIsLangOpen] = useState(false);
-  const [windowWidth, setWindowWidth] = useState(0);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   const langLabels: Record<string, string> = { en: 'EN', ja: 'JP', ko: 'KR' };
 
-  const handleLogoClick = () => {
-    router.push('/');
+  const closeAll = () => {
     setIsMenuOpen(false);
     setIsLangOpen(false);
   };
 
-  const handleToggle = () => {
-    if (windowWidth <= 768) {
-      setIsMenuOpen((prev) => !prev);
-      setIsLangOpen(false);
-    } else {
-      setIsLangOpen((prev) => !prev);
-      setIsMenuOpen(false);
-    }
+  // Which control the shared arrow drives depends on the viewport, but reading
+  // it into state would gate rendering on hydration and strip the whole menu
+  // out of the server HTML. A click always happens after hydration, so the
+  // media query can simply be read at that moment instead.
+  const isMobile = () => window.matchMedia('(max-width: 768px)').matches;
+
+  const openMenu = () => {
+    setIsMenuOpen((prev) => !prev);
+    setIsLangOpen(false);
   };
+
+  const openLang = () => {
+    setIsLangOpen((prev) => !prev);
+    setIsMenuOpen(false);
+  };
+
+  const handleToggle = () => (isMobile() ? openMenu() : openLang());
 
   const handleLangSelect = (lang: string) => {
     setIsLangOpen(false);
     router.replace(pathname, { locale: lang });
   };
 
+  // Crossing the 768px breakpoint would otherwise leave the dropdown for the
+  // previous viewport open while its trigger is already hidden by CSS.
   useEffect(() => {
-    setWindowWidth(window.innerWidth);
-    const handleResize = () => {
-      setWindowWidth(window.innerWidth);
-    };
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener('resize', closeAll);
+    return () => window.removeEventListener('resize', closeAll);
   }, []);
 
   useEffect(() => {
@@ -102,10 +106,11 @@ const Header = () => {
   return (
     <header className={isHome ? 'home-header' : 'navbar-header'}>
       <nav className={`navbar ${isHome ? 'home-navbar' : ''}`}>
-        <div
+        <Link
+          href="/"
+          aria-label="Softpoke"
           className="navbar__logo"
-          onClick={handleLogoClick}
-          style={{ cursor: 'pointer' }}
+          onClick={closeAll}
           onMouseMove={(e) => {
             const rect = e.currentTarget.getBoundingClientRect();
             const x = e.clientX - rect.left;
@@ -119,36 +124,34 @@ const Header = () => {
           onMouseLeave={(e) => {
             e.currentTarget.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
           }}
-        ></div>
+        ></Link>
         <div className="navbar__wrap">
-          {windowWidth > 768 ? (
-            <ul className="navbar__menu">{menuItems}</ul>
-          ) : null}
+          {/* Both variants are always rendered; globals.css hides the one that
+              does not belong to the current viewport. Gating them on measured
+              width instead would leave the server HTML with no links at all. */}
+          <ul className="navbar__menu">{menuItems}</ul>
           <div className="lang" ref={dropdownRef}>
-            {windowWidth > 768 ? (
-              <p
-                className="langRight01"
-                onClick={handleToggle}
-                style={{ cursor: 'pointer' }}
-              >
-                {langLabels[locale] || 'JP'}
-              </p>
-            ) : (
-              <p
-                className="langRight02"
-                onClick={handleToggle}
-                style={{ cursor: 'pointer' }}
-              >
-                {locale === 'ja' ? 'メニュー' : 'MENU'}
-              </p>
-            )}
+            <p
+              className="langRight01"
+              onClick={openLang}
+              style={{ cursor: 'pointer' }}
+            >
+              {langLabels[locale] || 'JP'}
+            </p>
+            <p
+              className="langRight02"
+              onClick={openMenu}
+              style={{ cursor: 'pointer' }}
+            >
+              {locale === 'ja' ? 'メニュー' : 'MENU'}
+            </p>
             <div
               className={`lang-arrow ${isMenuOpen || isLangOpen ? 'rotated' : ''}`}
               onClick={handleToggle}
               style={{ cursor: 'pointer' }}
             ></div>
-            {isLangOpen && windowWidth > 768 && <LangDropdown />}
-            {isMenuOpen && windowWidth <= 768 && <MenuDropdown />}
+            {isLangOpen && <LangDropdown />}
+            {isMenuOpen && <MenuDropdown />}
           </div>
         </div>
       </nav>
