@@ -20,19 +20,24 @@ export default function TokushohoPage() {
       <body style={{ fontFamily: '"Noto Sans JP", sans-serif', color: '#676767', backgroundColor: '#fff' }}>
         <section style={sectionStyle}>
           <h1 style={{ marginTop: '60px', marginBottom: '20px', fontFamily: '"Noto Serif JP", serif', fontWeight: 600, color: '#2a2a2c', fontSize: '48px' }}>特定商取引法に基づく表示</h1>
-          <h2 style={{ color: '#676767', fontSize: '24px', fontWeight: 'normal' }}>最終更新日：2025年11月1日</h2>
+          <h2 style={{ color: '#676767', fontSize: '24px', fontWeight: 'normal' }}>最終更新日：2026年9月16日</h2>
 
           <div style={{ marginTop: '40px', lineHeight: 1.8 }}>
+            <p>
+              本表示は、Softpoke（以下「当チーム」といいます。）が Apple App Store および Google Play Store
+              を通じて提供するすべてのアプリケーションおよびゲーム（以下、総称して「本アプリ」といいます。）の有料販売およびアプリ内課金に適用されます。
+            </p>
+
             <h2 style={h2Style}>販売事業者</h2>
             <p><strong>氏名：</strong> 日高 駿</p>
             <p><strong>所在地：</strong> 請求があり次第遅滞なく開示いたします<br />（福岡県福岡市西区）</p>
-            <p><strong>電話番号：</strong> メールにてお問い合わせください</p>
-            <p><strong>メールアドレス：</strong> info@bequasar.com</p>
-            <p>※個人情報保護のため、詳細な住所・電話番号は、ご購入者様からのご請求があった場合に開示いたします。</p>
+            <p><strong>電話番号：</strong> 請求があり次第遅滞なく開示いたします（メールにてお問い合わせください）</p>
+            <p><strong>メールアドレス：</strong> hi@softpoke.jp</p>
+            <p>※個人情報保護のため、詳細な住所・電話番号は、ご購入者様からのご請求があった場合に遅滞なく開示いたします。</p>
 
             <h2 style={h2Style}>販売価格</h2>
-            <p><strong>¥1,680（税込）</strong></p>
-            <p>※購入手続きの際に画面に表示される金額が販売価格となります。</p>
+            <p><strong>各アプリのストア掲載ページおよび購入手続き画面に表示される金額（税込）</strong></p>
+            <p>※アプリごとに販売価格は異なります。購入手続きの際に画面に表示される金額が販売価格となります。</p>
 
             <h2 style={h2Style}>商品代金以外の必要料金</h2>
             <p>アプリのご利用に必要となる通信料金は、お客様のご負担となります。</p>
@@ -58,20 +63,16 @@ export default function TokushohoPage() {
             </ul>
 
             <h2 style={h2Style}>動作環境</h2>
-            <h3>iOS版</h3>
+            <p>動作環境（対応OSのバージョン、対応デバイス）はアプリごとに異なります。詳細は各アプリのストア掲載ページに記載の要件をご確認ください。</p>
             <ul style={{ listStyle: 'disc', paddingLeft: '20px' }}>
-              <li><strong>対応OS：</strong> iOS 15.0以上</li>
-              <li><strong>対応デバイス：</strong> iPhone、iPad</li>
-            </ul>
-            <h3>Android版</h3>
-            <ul style={{ listStyle: 'disc', paddingLeft: '20px' }}>
-              <li><strong>対応OS：</strong> Android 7.0以上</li>
+              <li><strong>iOS版：</strong> App Store の「情報」欄に記載の互換性要件</li>
+              <li><strong>Android版：</strong> Google Play の「このアプリについて」欄に記載の要件</li>
             </ul>
             <p>※上記環境を満たしていても、一部端末では正常に動作しない場合があります。</p>
 
             <h2 style={h2Style}>お問い合わせ</h2>
-            <p>商品やサービスに関するお問い合わせは、以下のメールアドレスまでご連絡ください。</p>
-            <p><strong>メールアドレス：</strong> info@bequasar.com</p>
+            <p>商品やサービスに関するお問い合わせは、対象となるアプリ名を明記のうえ、以下のメールアドレスまでご連絡ください。</p>
+            <p><strong>メールアドレス：</strong> hi@softpoke.jp</p>
             <p>※お電話でのサポートは承っておりません。<br />※ご返信まで2〜3営業日いただく場合がございます。</p>
 
             <h2 style={h2Style}>その他</h2>
