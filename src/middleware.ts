@@ -7,6 +7,7 @@ export const config = {
   matcher: [
     '/',
     '/(ja|en|ko)/:path*',
-    '/((?!api|_next|_vercel|privacy-ja|terms-ja|tokushoho|.*\\..*).*)'
+    // /app 은 기기별 스토어 리다이렉트라 로케일을 붙이면 안 된다 (src/app/app/route.ts)
+    '/((?!api|app|_next|_vercel|privacy-ja|terms-ja|tokushoho|.*\\..*).*)'
   ]
 };
